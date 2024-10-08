@@ -16,7 +16,6 @@ namespace TarifRehberi
         {
             InitializeComponent();
         }
-
         private void yeniKategoriEklemeyiTamamlaButonu_Click(object sender, EventArgs e)
         {
             // Save changes and close the form
