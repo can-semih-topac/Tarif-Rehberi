@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TarifRehberi", "TarifRehberi\TarifRehberi.csproj", "{7E4A8D77-EB26-403B-8A47-462125EE3859}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Çözüm Öğeleri", "Çözüm Öğeleri", "{D3BEB6F8-C7C1-414F-AFEE-CBE4E6EBE2B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E4A8D77-EB26-403B-8A47-462125EE3859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E4A8D77-EB26-403B-8A47-462125EE3859}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E4A8D77-EB26-403B-8A47-462125EE3859}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E4A8D77-EB26-403B-8A47-462125EE3859}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {29A8C21D-2214-4642-BB26-9593CE7D452A}
+	EndGlobalSection
+EndGlobal
