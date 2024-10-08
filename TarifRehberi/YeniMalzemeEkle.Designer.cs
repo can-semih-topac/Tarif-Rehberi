@@ -134,6 +134,7 @@
             this.Controls.Add(this.label1);
             this.Name = "YeniMalzemeEkle";
             this.Text = "YeniMalzemeEkle";
+            this.Load += new System.EventHandler(this.YeniMalzemeEkle_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -53,40 +53,27 @@ namespace TarifRehberi
             decimal.TryParse(birimFiyatBox.Text, out birimFiyat);
             decimal toplamMiktar;
             decimal.TryParse(depodakiMiktarBox.Text, out toplamMiktar);
+            
 
-            // Veritabanı bağlantı dizesi
-            string connectionString = "Data Source=CAN-TOPAC-PC;Initial Catalog=TarifRehberiDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;MultiSubnetFailover=False";
+
+             Context context = new Context();
+            context.InsertMalzeme(malzemeAdi, malzemeBirimi, birimFiyat, toplamMiktar);
 
             // SQL sorgusu
-            string query = "INSERT INTO Malzemeler (MalzemeAdi, MalzemeBirim, BirimFiyat, ToplamMiktar) VALUES (@MalzemeAdi, @MalzemeBirim, @BirimFiyat, @ToplamMiktar)";
+            // string query = "INSERT INTO Malzemeler (MalzemeAdi, MalzemeBirim, BirimFiyat, ToplamMiktar) VALUES (@MalzemeAdi, @MalzemeBirim, @BirimFiyat, @ToplamMiktar)";
 
             // Veritabanına bağlanma ve sorguyu çalıştırma
-            
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Close();
-                connection.Open();
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@MalzemeAdi", malzemeAdi);
-                command.Parameters.AddWithValue("@MalzemeBirim", malzemeBirimi);
-                command.Parameters.AddWithValue("@BirimFiyat", birimFiyat);
-                command.Parameters.AddWithValue("@ToplamMiktar", toplamMiktar);
 
-                try
-                {
-                    
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Malzeme başarıyla eklendi.");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Bir hata oluştu: " + ex.Message);
-                }
-            }
-            
+
+
 
             // Formu kapatma
             this.Close();
+        }
+
+        private void YeniMalzemeEkle_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

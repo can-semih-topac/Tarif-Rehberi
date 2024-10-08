@@ -56,7 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\TTarifRehberiContext.cs" />
+    <Compile Include="Data\Context.cs" />
     <Compile Include="AnaEkran.cs">
       <SubType>Form</SubType>
     </Compile>
