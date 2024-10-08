@@ -81,6 +81,7 @@
     <Compile Include="MalzemeyeGöreTarifARa.Designer.cs">
       <DependentUpon>MalzemeyeGöreTarifARa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Kategori.cs" />
     <Compile Include="Models\Malzeme.cs" />
     <Compile Include="Models\Tarif.cs" />
     <Compile Include="Models\TarifMalzemeIlişkisi.cs" />

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 
 namespace TarifRehberi
@@ -16,14 +17,13 @@ namespace TarifRehberi
         // Veritabanı bağlantı dizesi
         private string connectionString = "Data Source=CAN-TOPAC-PC;Initial Catalog=TarifRehberiDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;MultiSubnetFailover=False";
         private SqlConnection conn;
-        
 
         public Context()
         {
             conn = new SqlConnection(connectionString);
         }
 
-        public void InsertMalzeme(string malzemeAdi, string malzemeBirimi, decimal birimFiyat, decimal toplamMiktar)
+        public void YeniMalzemeEkle(string malzemeAdi, string malzemeBirimi, decimal birimFiyat, decimal toplamMiktar)
         {
             conn.Close();
             conn.Open();
@@ -31,7 +31,6 @@ namespace TarifRehberi
 
             using (conn)
             {
-                
                 SqlCommand command = new SqlCommand(query, conn);
                 command.Parameters.AddWithValue("@MalzemeAdi", malzemeAdi);
                 command.Parameters.AddWithValue("@MalzemeBirim", malzemeBirimi);
@@ -42,13 +41,76 @@ namespace TarifRehberi
                 {
                     command.ExecuteNonQuery();
                     Console.WriteLine("Malzeme başarıyla eklendi.");
-                    conn.Close();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Bir hata oluştu: " + ex.Message);
                 }
+                finally
+                {
+                    conn.Close();
+                }
             }
+        }
+
+        public void YeniKategoriEkle(string kategoriAdi)
+        {
+            conn.Close();
+            conn.Open();
+            string query = "INSERT INTO Kategoriler (KategoriAdi) VALUES (@KategoriAdi)";
+
+            using (conn)
+            {
+                SqlCommand command = new SqlCommand(query, conn);
+                command.Parameters.AddWithValue("@KategoriAdi", kategoriAdi);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Kategori başarıyla eklendi.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public SqlDataReader LoadKategoriler()
+        {
+            string query = "SELECT KategoriAdi FROM Kategoriler";
+            SqlDataReader reader = null;
+
+            using (conn)
+            {
+                SqlCommand command = new SqlCommand(query, conn);
+
+                try
+                {
+                    conn.Open();
+                    reader = command.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Veritabanı bağlantı hatası: " + ex.Message);
+                }
+
+                if (reader != null)
+                {
+                    while (reader.Read())
+                    {
+                        MessageBox.Show("veriler " + reader["KategoriAdi"]);
+                    }
+                }
+
+                conn.Close();
+            }
+
+            return reader;
         }
     }
 }

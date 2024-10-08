@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.tarifAdiBox = new System.Windows.Forms.TextBox();
+            this.kategoriComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.hazirlanmaSuresiBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.malzemeeklebutonu = new System.Windows.Forms.Button();
@@ -44,23 +44,24 @@
             this.yeniKategoriEkleButonu = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // tarifAdiBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(212, 65);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(228, 22);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.tarifAdiBox.Location = new System.Drawing.Point(212, 65);
+            this.tarifAdiBox.Margin = new System.Windows.Forms.Padding(4);
+            this.tarifAdiBox.Name = "tarifAdiBox";
+            this.tarifAdiBox.Size = new System.Drawing.Size(228, 22);
+            this.tarifAdiBox.TabIndex = 0;
+            this.tarifAdiBox.TextChanged += new System.EventHandler(this.tarifAdiBox_TextChanged);
             // 
-            // comboBox1
+            // kategoriComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(212, 156);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(228, 24);
-            this.comboBox1.TabIndex = 1;
+            this.kategoriComboBox.FormattingEnabled = true;
+            this.kategoriComboBox.Location = new System.Drawing.Point(212, 156);
+            this.kategoriComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.kategoriComboBox.Name = "kategoriComboBox";
+            this.kategoriComboBox.Size = new System.Drawing.Size(228, 24);
+            this.kategoriComboBox.TabIndex = 1;
+            this.kategoriComboBox.SelectedIndexChanged += new System.EventHandler(this.kategoriComboBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -93,13 +94,14 @@
             this.label3.Text = "Hazırlanma Süresi:";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // textBox2
+            // hazirlanmaSuresiBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(212, 116);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(199, 22);
-            this.textBox2.TabIndex = 5;
+            this.hazirlanmaSuresiBox.Location = new System.Drawing.Point(212, 116);
+            this.hazirlanmaSuresiBox.Margin = new System.Windows.Forms.Padding(4);
+            this.hazirlanmaSuresiBox.Name = "hazirlanmaSuresiBox";
+            this.hazirlanmaSuresiBox.Size = new System.Drawing.Size(199, 22);
+            this.hazirlanmaSuresiBox.TabIndex = 5;
+            this.hazirlanmaSuresiBox.TextChanged += new System.EventHandler(this.hazirlanmaSuresiBox_TextChanged);
             // 
             // label4
             // 
@@ -194,12 +196,12 @@
             this.Controls.Add(this.malzemeeklebutonu);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.hazirlanmaSuresiBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.kategoriComboBox);
+            this.Controls.Add(this.tarifAdiBox);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TarifEkleForm";
             this.Text = "Tarif Ekle";
@@ -211,12 +213,12 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox tarifAdiBox;
+        private System.Windows.Forms.ComboBox kategoriComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox hazirlanmaSuresiBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button malzemeeklebutonu;

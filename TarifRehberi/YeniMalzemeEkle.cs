@@ -57,15 +57,7 @@ namespace TarifRehberi
 
 
              Context context = new Context();
-            context.InsertMalzeme(malzemeAdi, malzemeBirimi, birimFiyat, toplamMiktar);
-
-            // SQL sorgusu
-            // string query = "INSERT INTO Malzemeler (MalzemeAdi, MalzemeBirim, BirimFiyat, ToplamMiktar) VALUES (@MalzemeAdi, @MalzemeBirim, @BirimFiyat, @ToplamMiktar)";
-
-            // Veritabanına bağlanma ve sorguyu çalıştırma
-
-
-
+            context.YeniMalzemeEkle(malzemeAdi, malzemeBirimi, birimFiyat, toplamMiktar);
 
             // Formu kapatma
             this.Close();
