@@ -55,7 +55,7 @@ namespace TarifRehberi
             decimal.TryParse(depodakiMiktarBox.Text, out toplamMiktar);
 
             // Veritabanı bağlantı dizesi
-            string connectionString = "Data Source=CAN-TOPAC-PC;Initial Catalog=TarifRehberiDB;Integrated Security=True;Connect Timeout=30;Encrypt=True;MultiSubnetFailover=False";
+            string connectionString = "Data Source=CAN-TOPAC-PC;Initial Catalog=TarifRehberiDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;MultiSubnetFailover=False";
 
             // SQL sorgusu
             string query = "INSERT INTO Malzemeler (MalzemeAdi, MalzemeBirim, BirimFiyat, ToplamMiktar) VALUES (@MalzemeAdi, @MalzemeBirim, @BirimFiyat, @ToplamMiktar)";
@@ -64,6 +64,8 @@ namespace TarifRehberi
             
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
+                connection.Close();
+                connection.Open();
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@MalzemeAdi", malzemeAdi);
                 command.Parameters.AddWithValue("@MalzemeBirim", malzemeBirimi);
@@ -72,7 +74,7 @@ namespace TarifRehberi
 
                 try
                 {
-                    connection.Open();
+                    
                     command.ExecuteNonQuery();
                     MessageBox.Show("Malzeme başarıyla eklendi.");
                 }
