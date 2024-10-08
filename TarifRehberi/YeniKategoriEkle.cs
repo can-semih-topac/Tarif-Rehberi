@@ -16,12 +16,18 @@ namespace TarifRehberi
         {
             InitializeComponent();
         }
+
         private void yeniKategoriEklemeyiTamamlaButonu_Click(object sender, EventArgs e)
         {
             // Save changes and close the form
             // TODO: Add code to save changes
 
             this.Close();
+        }
+
+        private void YeniKategoriEkle_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

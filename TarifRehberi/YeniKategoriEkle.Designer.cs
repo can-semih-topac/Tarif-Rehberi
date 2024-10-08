@@ -69,6 +69,7 @@
             this.Controls.Add(this.yeniKategoriEklemeyiTamamlaButonu);
             this.Name = "YeniKategoriEkle";
             this.Text = "Yeni Kategori Ekle";
+            this.Load += new System.EventHandler(this.YeniKategoriEkle_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
