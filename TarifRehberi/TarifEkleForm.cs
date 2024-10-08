@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,10 @@ namespace TarifRehberi
         public TarifEkleForm()
         {
             InitializeComponent();
+            // LoadKategoriler();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void tarifAdiBox_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -61,5 +63,18 @@ namespace TarifRehberi
             YeniKategoriEkle yeniKategoriEkleForm = new YeniKategoriEkle();
             yeniKategoriEkleForm.Show();
         }
+
+        private void hazirlanmaSuresiBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void kategoriComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+
+            
+        }
+        
     }
 }

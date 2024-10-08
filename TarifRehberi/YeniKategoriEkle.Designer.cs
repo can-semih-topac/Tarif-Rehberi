@@ -30,7 +30,7 @@
         {
             this.yeniKategoriEklemeyiTamamlaButonu = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.kategoriAdiBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // yeniKategoriEklemeyiTamamlaButonu
@@ -52,19 +52,20 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Yeni kategorinin adını girin:";
             // 
-            // textBox1
+            // kategoriAdiBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(42, 111);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(197, 22);
-            this.textBox1.TabIndex = 2;
+            this.kategoriAdiBox.Location = new System.Drawing.Point(42, 111);
+            this.kategoriAdiBox.Name = "kategoriAdiBox";
+            this.kategoriAdiBox.Size = new System.Drawing.Size(197, 22);
+            this.kategoriAdiBox.TabIndex = 2;
+            this.kategoriAdiBox.TextChanged += new System.EventHandler(this.kategoriAdiBox_TextChanged);
             // 
             // YeniKategoriEkle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(310, 450);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.kategoriAdiBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.yeniKategoriEklemeyiTamamlaButonu);
             this.Name = "YeniKategoriEkle";
@@ -79,6 +80,6 @@
 
         private System.Windows.Forms.Button yeniKategoriEklemeyiTamamlaButonu;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox kategoriAdiBox;
     }
 }
