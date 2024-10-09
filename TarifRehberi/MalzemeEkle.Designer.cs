@@ -69,11 +69,12 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(47, 302);
+            this.label3.Location = new System.Drawing.Point(47, 182);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Seçili malzemeler";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // comboBox1
             // 
@@ -83,14 +84,15 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(228, 24);
             this.comboBox1.TabIndex = 1;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(50, 333);
+            this.listBox1.Location = new System.Drawing.Point(50, 237);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(434, 180);
+            this.listBox1.Size = new System.Drawing.Size(434, 276);
             this.listBox1.TabIndex = 5;
             // 
             // yeniMalzemeEkleButonu
@@ -105,7 +107,7 @@
             // 
             // malzemeeklemeyitamamlabutonu
             // 
-            this.malzemeeklemeyitamamlabutonu.Location = new System.Drawing.Point(566, 333);
+            this.malzemeeklemeyitamamlabutonu.Location = new System.Drawing.Point(566, 237);
             this.malzemeeklemeyitamamlabutonu.Name = "malzemeeklemeyitamamlabutonu";
             this.malzemeeklemeyitamamlabutonu.Size = new System.Drawing.Size(244, 57);
             this.malzemeeklemeyitamamlabutonu.TabIndex = 7;

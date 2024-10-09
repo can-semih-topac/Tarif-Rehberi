@@ -12,9 +12,11 @@ namespace TarifRehberi
 {
     public partial class MalzemeEkle : Form
     {
+        public List<string> Malzemeler { get; private set; }
         public MalzemeEkle()
         {
             InitializeComponent();
+            Malzemeler = new List<string>();
         }
 
         private void MalzemeEkle_Load(object sender, EventArgs e)
@@ -32,13 +34,23 @@ namespace TarifRehberi
 
         private void secilenMalzemeyiEkleButonu_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void yeniMalzemeEkleButonu_Click(object sender, EventArgs e)
         {
             YeniMalzemeEkle yeniMalzemeEkleFormu = new YeniMalzemeEkle();
             yeniMalzemeEkleFormu.Show();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

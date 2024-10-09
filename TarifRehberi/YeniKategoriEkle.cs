@@ -19,7 +19,7 @@ namespace TarifRehberi
 
         private void kategoriAdiBox_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void yeniKategoriEklemeyiTamamlaButonu_Click(object sender, EventArgs e)

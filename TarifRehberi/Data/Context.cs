@@ -112,5 +112,39 @@ namespace TarifRehberi
 
             return reader;
         }
+        public List<string> TumKategorileriGetir()
+        {
+            List<string> kategoriler = new List<string>();
+
+            conn.Close();
+            conn.Open();
+            string query = "SELECT KategoriAdi FROM Kategoriler";
+
+            using (conn)
+            {
+                SqlCommand command = new SqlCommand(query, conn);
+
+                try
+                {
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string kategoriAdi = reader.GetString(0);
+                        kategoriler.Add(kategoriAdi);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+
+            return kategoriler;
+        }
+
     }
 }
