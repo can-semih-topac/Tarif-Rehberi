@@ -77,12 +77,6 @@
     <Compile Include="FiltreEkle.Designer.cs">
       <DependentUpon>FiltreEkle.cs</DependentUpon>
     </Compile>
-    <Compile Include="MalzemeEkle.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MalzemeEkle.Designer.cs">
-      <DependentUpon>MalzemeEkle.cs</DependentUpon>
-    </Compile>
     <Compile Include="MalzemeyeGöreTarifARa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,9 +141,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FiltreEkle.resx">
       <DependentUpon>FiltreEkle.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MalzemeEkle.resx">
-      <DependentUpon>MalzemeEkle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MalzemeyeGöreTarifARa.resx">
       <DependentUpon>MalzemeyeGöreTarifARa.cs</DependentUpon>
