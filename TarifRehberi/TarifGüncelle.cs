@@ -44,8 +44,8 @@ namespace TarifRehberi
 
         private void malzemeeklebutonu_Click(object sender, EventArgs e)
         {
-            MalzemeEkle malzemeEkleForm = new MalzemeEkle();
-            malzemeEkleForm.Show();
+            YeniMalzemeEkle yenimalzemeEkleForm = new YeniMalzemeEkle();
+            yenimalzemeEkleForm.Show();
         }
 
         private void tarifigüncellebutonu_Click(object sender, EventArgs e)

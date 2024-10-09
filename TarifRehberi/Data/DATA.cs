@@ -24,10 +24,10 @@ namespace TarifRehberi.Data
 
 
         static Context context=new Context();
-        SqlConnection conn = context.getConn();
+        // SqlConnection conn = context.getConn();
         public DATA()
         {
-            string query=;
+            // string query=;
 
         }
 

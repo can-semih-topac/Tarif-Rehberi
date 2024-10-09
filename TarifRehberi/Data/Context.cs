@@ -15,7 +15,8 @@ namespace TarifRehberi
     public class Context
     {
         // Veritabanı bağlantı dizesi
-        private string connectionString = "Data Source=DESKTOP-8MG4EKJ\\SQLEXPRESS;Initial Catalog=TarifRehberiDB;Integrated Security=True;Trust Server Certificate=True";
+        private string Path = "C:\\DATA\\ConnectionString.txt";
+        private string connectionString;
         private SqlConnection conn=null;
 
         public SqlConnection getConn { get { return conn; } }  
@@ -24,6 +25,13 @@ namespace TarifRehberi
 
         public Context()
         {
+            try
+            {
+                connectionString = System.IO.File.ReadAllText(Path);
+            }catch (Exception ex)
+            {
+                MessageBox.Show("Veritabanı bağlantı hatası: " + ex.Message);
+            }
             conn = new SqlConnection(connectionString);
         }
 
@@ -211,10 +219,10 @@ namespace TarifRehberi
 
             return kategoriler;
         }
-
-        internal SqlConnection getConn()
+        /*
+          internal SqlConnection getConn()
         {
             throw new NotImplementedException();
-        }
+        }*/
     }
 }
