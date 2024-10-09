@@ -28,12 +28,10 @@ namespace TarifRehberi
         {
 
         }
-
         private void label4_Click(object sender, EventArgs e)
         {
 
         }
-
         private void label5_Click(object sender, EventArgs e)
         {
 
@@ -48,14 +46,6 @@ namespace TarifRehberi
         {
             MalzemeEkle malzemeEkleForm = new MalzemeEkle();
             malzemeEkleForm.Show();
-        }
-
-        private void tarifitamamlabutonu_Click(object sender, EventArgs e)
-        {
-            // Save changes and close the form
-            // TODO: Add code to save changes
-
-            this.Close();
         }
 
         private void yeniKategoriEkleButonu_Click(object sender, EventArgs e)
