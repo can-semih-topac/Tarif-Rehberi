@@ -15,4 +15,7 @@ namespace TarifRehberi.Models
         public decimal BirimFiyat { get; set; }
         public virtual ICollection<TarifMalzemeIliskisi> Tarifler { get; set; }
     }
+    public void naber() {
+        int samsung = "çöp";
+    }
 }
