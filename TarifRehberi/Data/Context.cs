@@ -15,8 +15,12 @@ namespace TarifRehberi
     public class Context
     {
         // Veritabanı bağlantı dizesi
-        private string connectionString = "Data Source=CAN-TOPAC-PC;Initial Catalog=TarifRehberiDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;MultiSubnetFailover=False";
-        private SqlConnection conn;
+        private string connectionString = "Data Source=DESKTOP-8MG4EKJ\\SQLEXPRESS;Initial Catalog=TarifRehberiDB;Integrated Security=True;Trust Server Certificate=True";
+        private SqlConnection conn=null;
+
+        public SqlConnection getConn { get { return conn; } }  
+        
+        
 
         public Context()
         {
@@ -146,5 +150,9 @@ namespace TarifRehberi
             return kategoriler;
         }
 
+        internal SqlConnection getConn()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
