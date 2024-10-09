@@ -79,8 +79,70 @@ namespace TarifRehberi
                 }
             }
         }
+        public void YeniTarifEkle(string tarifAdi, string kategoriAdi, decimal hazirlanmaSuresi, string talimatlar)
+        {
+            conn.Close();
+            conn.Open();
+            string query = "INSERT INTO Tarifler (TarifAdi, KategoriAdi, HazirlanmaSuresi, Talimatlar) VALUES (@TarifAdi, @KategoriAdi, @HazirlanmaSuresi, @Talimatlar)";
 
-        public SqlDataReader LoadKategoriler()
+            using (conn)
+            {
+                SqlCommand command = new SqlCommand(query, conn);
+                command.Parameters.AddWithValue("@TarifAdi", tarifAdi);
+                command.Parameters.AddWithValue("@KategoriAdi", kategoriAdi);
+                command.Parameters.AddWithValue("@HazirlanmaSuresi", hazirlanmaSuresi);
+                command.Parameters.AddWithValue("@Talimatlar", talimatlar);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Tarif başarıyla eklendi.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                    
+                }
+            }
+        }
+        SqlDataReader Sorgu(string select, string from, string where)
+        {
+            object[] sonuc = null;
+            using (conn)
+            {
+                conn.Close();
+                conn.Open();
+                SqlDataReader reader = null;
+                SqlCommand command = null;
+
+                if (where == null)
+                {
+                     command = new SqlCommand("SELECT " + select + " FROM " + from, conn);
+                }
+                else
+                {
+                     command = new SqlCommand("SELECT " + select + " FROM " + from + " WHERE " + where, conn);
+                }
+                try
+                {
+                    reader = command.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Veritabanı bağlantı hatası: " + ex.Message);
+                }
+
+                return reader; 
+            }
+            
+        }
+
+
+                public SqlDataReader LoadKategoriler()
         {
             string query = "SELECT KategoriAdi FROM Kategoriler";
             SqlDataReader reader = null;

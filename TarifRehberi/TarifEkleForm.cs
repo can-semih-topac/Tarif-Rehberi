@@ -78,11 +78,22 @@ namespace TarifRehberi
                 kategoriComboBox.Items.Add(kategori);
             }
             
-            
-
-
         }
         private void talimatlarBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void malzemeEkleComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void malzemeEkleButonu_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void malzemeMiktariBox_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -95,8 +106,12 @@ namespace TarifRehberi
             decimal hazirlanmasuresi;
             decimal.TryParse(hazirlanmaSuresiBox.Text, out hazirlanmasuresi);
             string secilenKategori = kategoriComboBox.SelectedItem.ToString();
-
+            string secilenMalzeme = malzemeEkleComboBox.SelectedItem.ToString();
+            decimal malzemeMiktari;
+            decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
             string talimatlar = talimatlarBox.Text;
+            Context context = new Context();
+            context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmasuresi, talimatlar);
 
             this.Close();
         }

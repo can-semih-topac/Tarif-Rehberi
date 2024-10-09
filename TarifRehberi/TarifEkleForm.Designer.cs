@@ -43,10 +43,10 @@
             this.tarifitamamlabutonu = new System.Windows.Forms.Button();
             this.yeniKategoriEkleButonu = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.malzemeEkleComboBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.malzemeEkle = new System.Windows.Forms.Button();
+            this.malzemeMiktariBox = new System.Windows.Forms.TextBox();
+            this.malzemeEkleButonu = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tarifAdiBox
@@ -198,13 +198,14 @@
             this.label7.TabIndex = 15;
             this.label7.Text = "Malzeme ekle:";
             // 
-            // comboBox1
+            // malzemeEkleComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(183, 195);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(168, 24);
-            this.comboBox1.TabIndex = 16;
+            this.malzemeEkleComboBox.FormattingEnabled = true;
+            this.malzemeEkleComboBox.Location = new System.Drawing.Point(183, 195);
+            this.malzemeEkleComboBox.Name = "malzemeEkleComboBox";
+            this.malzemeEkleComboBox.Size = new System.Drawing.Size(168, 24);
+            this.malzemeEkleComboBox.TabIndex = 16;
+            this.malzemeEkleComboBox.SelectedIndexChanged += new System.EventHandler(this.malzemeEkleComboBox_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -215,31 +216,33 @@
             this.label8.TabIndex = 17;
             this.label8.Text = "Malzeme miktarı:";
             // 
-            // textBox1
+            // malzemeMiktariBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(183, 230);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(85, 22);
-            this.textBox1.TabIndex = 18;
+            this.malzemeMiktariBox.Location = new System.Drawing.Point(183, 230);
+            this.malzemeMiktariBox.Name = "malzemeMiktariBox";
+            this.malzemeMiktariBox.Size = new System.Drawing.Size(85, 22);
+            this.malzemeMiktariBox.TabIndex = 18;
+            this.malzemeMiktariBox.TextChanged += new System.EventHandler(this.malzemeMiktariBox_TextChanged);
             // 
-            // malzemeEkle
+            // malzemeEkleButonu
             // 
-            this.malzemeEkle.Location = new System.Drawing.Point(276, 230);
-            this.malzemeEkle.Name = "malzemeEkle";
-            this.malzemeEkle.Size = new System.Drawing.Size(75, 23);
-            this.malzemeEkle.TabIndex = 19;
-            this.malzemeEkle.Text = "Ekle";
-            this.malzemeEkle.UseVisualStyleBackColor = true;
+            this.malzemeEkleButonu.Location = new System.Drawing.Point(276, 230);
+            this.malzemeEkleButonu.Name = "malzemeEkleButonu";
+            this.malzemeEkleButonu.Size = new System.Drawing.Size(75, 23);
+            this.malzemeEkleButonu.TabIndex = 19;
+            this.malzemeEkleButonu.Text = "Ekle";
+            this.malzemeEkleButonu.UseVisualStyleBackColor = true;
+            this.malzemeEkleButonu.Click += new System.EventHandler(this.malzemeEkleButonu_Click);
             // 
             // TarifEkleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
-            this.Controls.Add(this.malzemeEkle);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.malzemeEkleButonu);
+            this.Controls.Add(this.malzemeMiktariBox);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.malzemeEkleComboBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.yeniKategoriEkleButonu);
             this.Controls.Add(this.tarifitamamlabutonu);
@@ -281,9 +284,9 @@
         private System.Windows.Forms.Button tarifitamamlabutonu;
         private System.Windows.Forms.Button yeniKategoriEkleButonu;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox malzemeEkleComboBox;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button malzemeEkle;
+        private System.Windows.Forms.TextBox malzemeMiktariBox;
+        private System.Windows.Forms.Button malzemeEkleButonu;
     }
 }
