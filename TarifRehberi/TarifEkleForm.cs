@@ -75,11 +75,13 @@ namespace TarifRehberi
         }
         private void malzemeEkleComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            MessageBox.Show("combobox girdi.");
             Context context = new Context();
             List<string> malzemeler = context.TumMalzemeleriGetir();
 
             foreach (string malzeme in malzemeler)
             {
+                MessageBox.Show("forich  girdi.");
                 malzemeEkleComboBox.Items.Add(malzeme);
             }
 

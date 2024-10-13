@@ -273,6 +273,7 @@ namespace TarifRehberi
         }
          public List<string> TumMalzemeleriGetir() // burada yalnızca malzeme adını getiriyoruz ama diğer bilgiler de gelmeli
         {
+            MessageBox.Show("fonksiyon girdi.");
             List<string> malzemeler = new List<string>();
 
             conn.Close();
@@ -281,19 +282,23 @@ namespace TarifRehberi
 
             using (conn)
             {
+                MessageBox.Show("using girdi");
                 SqlCommand command = new SqlCommand(query2, conn);
 
                 try
                 {
+                    MessageBox.Show("malzeme başarıyla gösterildi.");
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
+
                         string malzemeAdi = reader.GetString(0);
                         malzemeler.Add(malzemeAdi);
                     }
                 }
                 catch (Exception ex)
                 {
+                    MessageBox.Show("Bir hata oluştu: " + ex.Message);
                     Console.WriteLine("Bir hata oluştu: " + ex.Message);
                 }
                 finally
@@ -357,9 +362,11 @@ namespace TarifRehberi
                         string tarifAdi = reader.GetString(0);
                         tarifler.Add(tarifAdi);
                     }
+                    Console.WriteLine("Tarif başarıyla gösterildi.");
                 }
                 catch (Exception ex)
                 {
+                    MessageBox.Show("Bir hata oluştu: " + ex.Message);
                     Console.WriteLine("Bir hata oluştu: " + ex.Message);
                 }
                 finally
