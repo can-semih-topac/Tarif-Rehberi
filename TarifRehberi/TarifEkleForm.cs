@@ -30,7 +30,6 @@ namespace TarifRehberi
         {
 
         }
-
         private void label3_Click(object sender, EventArgs e)
         {
 
@@ -43,29 +42,24 @@ namespace TarifRehberi
         {
 
         }
-
         private void TarifEkleForm_Load(object sender, EventArgs e)
         {
 
         }
-
         private void yeniMalzemeEkleButonu_Click(object sender, EventArgs e)
         {
             YeniMalzemeEkle yeniMalzemeEkleForm = new YeniMalzemeEkle();
             yeniMalzemeEkleForm.Show();
         }
-
         private void yeniKategoriEkleButonu_Click(object sender, EventArgs e)
         {
             YeniKategoriEkle yeniKategoriEkleForm = new YeniKategoriEkle();
             yeniKategoriEkleForm.Show();
         }
-
         private void hazirlanmaSuresiBox_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void kategoriComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -74,24 +68,29 @@ namespace TarifRehberi
 
             foreach (string kategori in kategoriler)
             {
-                // Kategorileri göstermek için uygun bir kontrolü kullanın, örneğin ListBox
                 kategoriComboBox.Items.Add(kategori);
             }
             
+
+        }
+        private void malzemeEkleComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Context context = new Context();
+            List<string> malzemeler = context.TumMalzemeleriGetir();
+
+            foreach (string malzeme in malzemeler)
+            {
+                malzemeEkleComboBox.Items.Add(malzeme);
+            }
+
         }
         private void talimatlarBox_TextChanged(object sender, EventArgs e)
         {
 
         }
-
-        private void malzemeEkleComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void malzemeEkleButonu_Click(object sender, EventArgs e)
         {
-
+            
         }
         private void malzemeMiktariBox_TextChanged(object sender, EventArgs e)
         {
@@ -99,19 +98,17 @@ namespace TarifRehberi
         }
         private void tarifitamamlabutonu_Click(object sender, EventArgs e)
         {
-            // Save changes and close the form
-            // TODO: Add code to save changes
-
+            
             string tarifAdi = tarifAdiBox.Text;
-            decimal hazirlanmasuresi;
-            decimal.TryParse(hazirlanmaSuresiBox.Text, out hazirlanmasuresi);
+             int hazirlanmaSuresi;
+            int.TryParse(hazirlanmaSuresiBox.Text, out hazirlanmaSuresi);
             string secilenKategori = kategoriComboBox.SelectedItem.ToString();
-            string secilenMalzeme = malzemeEkleComboBox.SelectedItem.ToString();
+            // string secilenMalzeme = malzemeEkleComboBox.SelectedItem.ToString();
             decimal malzemeMiktari;
             decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
             string talimatlar = talimatlarBox.Text;
             Context context = new Context();
-            context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmasuresi, talimatlar);
+            context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmaSuresi, talimatlar, /*secilenMalzeme,*/ malzemeMiktari);
 
             this.Close();
         }

@@ -30,7 +30,7 @@ namespace TarifRehberi
 
         private void tarifguncellebutonu_Click(object sender, EventArgs e)
         {
-            TarifGüncelle tarifGuncelleForm = new TarifGüncelle();
+            TarifGüncelleForm tarifGuncelleForm = new TarifGüncelleForm();
             tarifGuncelleForm.Show();
         }
 
@@ -42,6 +42,7 @@ namespace TarifRehberi
 
         private void oneriAlButonu_Click(object sender, EventArgs e)
         {
+            EkleTulumbaTarifi();
             OneriAl oneriAlForm = new OneriAl();
             oneriAlForm.Show();
         }
@@ -50,6 +51,18 @@ namespace TarifRehberi
         {
             TarifAra tarifAraForm = new TarifAra();
             tarifAraForm.Show();
+        }
+        public void EkleTulumbaTarifi()
+        {
+            Context context = new Context();
+            string tarifAdi = "tulumba";
+            string kategoriAdi = "tatlılar";
+            int  hazirlanmaSuresi = 20;
+            string talimatlar = "bu bir denemedir";
+            string secilenMalzeme = "un"; // Örnek malzeme adı
+            decimal malzemeMiktari = 500; // Örnek malzeme miktarı
+
+            context.YeniTarifEkle(tarifAdi, kategoriAdi, hazirlanmaSuresi, talimatlar, /*secilenMalzeme,*/ malzemeMiktari);
         }
     }
 }

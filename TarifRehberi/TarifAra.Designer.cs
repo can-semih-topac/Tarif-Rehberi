@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.tarifAdi = new System.Windows.Forms.TextBox();
+            this.tariflerListBox = new System.Windows.Forms.ListBox();
             this.malzemeyeGöreTarifAraButonu = new System.Windows.Forms.Button();
             this.aramayıBitirButonu = new System.Windows.Forms.Button();
             this.filtreEkleButonu = new System.Windows.Forms.Button();
@@ -46,21 +46,23 @@
             this.label1.Text = "Aradığınız tarifin adını girin:";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // textBox1
+            // tarifAdi
             // 
-            this.textBox1.Location = new System.Drawing.Point(213, 66);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(160, 22);
-            this.textBox1.TabIndex = 1;
+            this.tarifAdi.Location = new System.Drawing.Point(213, 66);
+            this.tarifAdi.Name = "tarifAdi";
+            this.tarifAdi.Size = new System.Drawing.Size(160, 22);
+            this.tarifAdi.TabIndex = 1;
+            this.tarifAdi.TextChanged += new System.EventHandler(this.tarifAdi_TextChanged);
             // 
-            // listBox1
+            // tariflerListBox
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(47, 111);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(643, 260);
-            this.listBox1.TabIndex = 2;
+            this.tariflerListBox.FormattingEnabled = true;
+            this.tariflerListBox.ItemHeight = 16;
+            this.tariflerListBox.Location = new System.Drawing.Point(47, 111);
+            this.tariflerListBox.Name = "tariflerListBox";
+            this.tariflerListBox.Size = new System.Drawing.Size(643, 260);
+            this.tariflerListBox.TabIndex = 2;
+            this.tariflerListBox.SelectedIndexChanged += new System.EventHandler(this.tariflerListBox_SelectedIndexChanged);
             // 
             // malzemeyeGöreTarifAraButonu
             // 
@@ -100,11 +102,12 @@
             this.Controls.Add(this.filtreEkleButonu);
             this.Controls.Add(this.aramayıBitirButonu);
             this.Controls.Add(this.malzemeyeGöreTarifAraButonu);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tariflerListBox);
+            this.Controls.Add(this.tarifAdi);
             this.Controls.Add(this.label1);
             this.Name = "TarifAra";
             this.Text = "Tarif Ara";
+            this.Load += new System.EventHandler(this.TarifAra_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,8 +116,8 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TextBox tarifAdi;
+        private System.Windows.Forms.ListBox tariflerListBox;
         private System.Windows.Forms.Button malzemeyeGöreTarifAraButonu;
         private System.Windows.Forms.Button aramayıBitirButonu;
         private System.Windows.Forms.Button filtreEkleButonu;
