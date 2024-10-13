@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 
 namespace TarifRehberi
@@ -12,8 +13,8 @@ namespace TarifRehberi
     public class Context
     {
         // Veritabanı bağlantı dizesi
-        private string Path = "C:\\DATA\\ConnectionString.txt";
-        private string connectionString;
+        private string path = "C:\\Data\\ConnectionString.txt";
+        private string connectionString  ;
         private SqlConnection conn=null;
 
         public SqlConnection getConn { get { return conn; } }  
@@ -24,11 +25,10 @@ namespace TarifRehberi
         {
             try
             {
-                connectionString = System.IO.File.ReadAllText(Path);
-            }catch (Exception ex)
-            {
-                MessageBox.Show("Veritabanı bağlantı hatası: " + ex.Message);
+                string connectionString = File.ReadAllText(path);
+                
             }
+            catch (Exception ex) { }
             conn = new SqlConnection(connectionString);
         }
 

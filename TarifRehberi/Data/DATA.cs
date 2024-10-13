@@ -9,6 +9,12 @@ namespace TarifRehberi.Data
 {
     class DATA
     {
+        string DatabaseAdi = "TarifRehberiDB";
+        string TarifTablosu = "Tarifler";
+        string MalzemeTablosu = "Malzemeler";
+        string Tarif_MalzemeTablosu = "";
+        string KategorilerTablosu = "Kategoriler";
+
         string tarifID="TarifID";
         string tarifAdi="TarifAdi";
         string kategori="Kategori";
@@ -24,10 +30,28 @@ namespace TarifRehberi.Data
 
 
         static Context context=new Context();
-        // SqlConnection conn = context.getConn();
+        
         public DATA()
         {
-            // string query=;
+            SqlConnection con = context.getConn;
+            string query1 = "IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'TarifRehberiDB')\r\nBEGIN\r\n    CREATE DATABASE TarifRehberiDB;\r\nEND";
+
+            string query2 = "";
+
+            string query3 = "";
+            using (con) {
+                
+                con.Close();
+                con.Open();
+                    SqlCommand command = new SqlCommand(query1,con);
+                try
+                {
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Complated");
+                }catch (Exception ex) { Console.WriteLine("Couldnt add database (query 1)"); }
+
+
+            }
 
         }
 
