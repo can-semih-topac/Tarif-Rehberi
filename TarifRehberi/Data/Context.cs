@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.IO;
 
 
 namespace TarifRehberi
@@ -15,7 +16,8 @@ namespace TarifRehberi
     public class Context
     {
         // Veritabanı bağlantı dizesi
-        private string connectionString = "Data Source=DESKTOP-8MG4EKJ\\SQLEXPRESS;Initial Catalog=TarifRehberiDB;Integrated Security=True;Trust Server Certificate=True";
+        private string path = "C:\\Data\\ConnectionString.txt";
+        private string connectionString  ;
         private SqlConnection conn=null;
 
         public SqlConnection getConn { get { return conn; } }  
@@ -24,6 +26,12 @@ namespace TarifRehberi
 
         public Context()
         {
+            try
+            {
+                string connectionString = File.ReadAllText(path);
+                
+            }
+            catch (Exception ex) { }
             conn = new SqlConnection(connectionString);
         }
 
@@ -212,9 +220,6 @@ namespace TarifRehberi
             return kategoriler;
         }
 
-        internal SqlConnection getConn()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
