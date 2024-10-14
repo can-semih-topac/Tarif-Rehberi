@@ -9,8 +9,8 @@ namespace TarifRehberi.Data
 {
     class DATA
     {
-        string DatabaseAdi = "TarifRehberiDB";
-        string TarifTablosu = "Tarifler";
+        public string DatabaseAdi = "TarifRehberiDB";
+        public static string TarifTablosu = "Tarifler";
         string MalzemeTablosu = "Malzemeler";
         string Tarif_MalzemeTablosu = "";
         string KategorilerTablosu = "Kategoriler";

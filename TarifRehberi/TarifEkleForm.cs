@@ -81,7 +81,7 @@ namespace TarifRehberi
 
             foreach (string malzeme in malzemeler)
             {
-                MessageBox.Show("forich  girdi.");
+                MessageBox.Show("forich girdi.");
                 malzemeEkleComboBox.Items.Add(malzeme);
             }
 
@@ -105,12 +105,12 @@ namespace TarifRehberi
              int hazirlanmaSuresi;
             int.TryParse(hazirlanmaSuresiBox.Text, out hazirlanmaSuresi);
             string secilenKategori = kategoriComboBox.SelectedItem.ToString();
-            // string secilenMalzeme = malzemeEkleComboBox.SelectedItem.ToString();
+            string secilenMalzeme = malzemeEkleComboBox.SelectedItem != null ? malzemeEkleComboBox.SelectedItem.ToString() : string.Empty;
             decimal malzemeMiktari;
             decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
             string talimatlar = talimatlarBox.Text;
             Context context = new Context();
-            context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmaSuresi, talimatlar, /*secilenMalzeme,*/ malzemeMiktari);
+            context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmaSuresi, talimatlar, secilenMalzeme, malzemeMiktari);
 
             this.Close();
         }

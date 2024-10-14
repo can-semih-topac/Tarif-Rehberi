@@ -5,30 +5,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
+using TarifRehberi.Data;
+using TarifRehberi.Models;
 
 
 namespace TarifRehberi
 {
     public class Context
-    {
+    {   
         // Veritabanı bağlantı dizesi
-        private string path = "C:\\Data\\ConnectionString.txt";
-        private string connectionString  ;
-        private SqlConnection conn=null;
+        private string Path = "C:\\DATA\\ConnectionString.txt";
+        private string connectionString;
+        private SqlConnection conn = null;
 
-        public SqlConnection getConn { get { return conn; } }  
-        
-        
+        public SqlConnection getConn { get { return conn; } }
+
+
 
         public Context()
         {
             try
             {
-                string connectionString = File.ReadAllText(path);
-                
+                connectionString = System.IO.File.ReadAllText(Path);
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Veritabanı bağlantı hatası: " + ex.Message);
+            }
             conn = new SqlConnection(connectionString);
         }
 
@@ -89,11 +92,10 @@ namespace TarifRehberi
                 }
             }
         }
-        public void YeniTarifEkle(string tarifAdi, string kategoriAdi, int hazirlamaSuresi, string talimatlar, decimal malzemeMiktari)
+        public void YeniTarifEkle(string tarifAdi, string kategoriAdi, int hazirlamaSuresi, string talimatlar, string secilenMalzeme, decimal malzemeMiktari) // malzeme list 
         {
             using (conn)
             {
-                conn.Close();
                 conn.Open();
                 string query0 = "INSERT INTO Tarifler (TarifAdi, KategoriAdi, HazirlamaSuresi, Talimatlar) VALUES (@TarifAdi, @KategoriAdi, @HazirlamaSuresi, @Talimatlar)";
 
@@ -116,14 +118,28 @@ namespace TarifRehberi
                         MessageBox.Show("Bir hata oluştu: " + ex.Message);
                     }
                 }
-                /*
-                string query2 = "INSERT INTO TarifMalzemeler (SecilenMalzeme, MalzemeMiktari, TarifAdi) VALUES (@MalzemeAdi, @MalzemeMiktar, @TarifAdi)";
+
+                int tarifID;
+                using (SqlDataReader reader = Sorgu("*", DATA.TarifTablosu, "TarifAdi = '" + tarifAdi + "'"))
+                {
+                    if (reader.Read())
+                    {
+                        tarifID = reader.GetInt32(0);
+                    }
+                    else
+                    {
+                        tarifID = -1;
+                    }
+                }
+                MessageBox.Show("tarif id: " + tarifID);
+
+                string query2 = "INSERT INTO TarifMalzemeIliskisi (SecilenMalzeme, MalzemeMiktari, TarifAdi) VALUES (@MalzemeID, @MalzemeMiktar, @TarifID)";
 
                 using (SqlCommand command = new SqlCommand(query2, conn))
                 {
-                    // command.Parameters.AddWithValue("@MalzemeAdi", secilenMalzeme);
+                    command.Parameters.AddWithValue("@MalzemeID", secilenMalzeme);
                     command.Parameters.AddWithValue("@MalzemeMiktar", malzemeMiktari);
-                    command.Parameters.AddWithValue("@TarifAdi", tarifAdi);
+                    command.Parameters.AddWithValue("@TarifID", tarifAdi);
 
                     try
                     {
@@ -135,11 +151,11 @@ namespace TarifRehberi
                         Console.WriteLine("Bir hata oluştu: " + ex.Message);
                     }
                 }
-                */
+
                 conn.Close();
             }
         }
-        
+
         SqlDataReader Sorgu(string select, string from, string where)
         {
             object[] sonuc = null;
@@ -152,11 +168,11 @@ namespace TarifRehberi
 
                 if (where == null)
                 {
-                     command = new SqlCommand("SELECT " + select + " FROM " + from, conn);
+                    command = new SqlCommand("SELECT " + select + " FROM " + from, conn);
                 }
                 else
                 {
-                     command = new SqlCommand("SELECT " + select + " FROM " + from + " WHERE " + where, conn);
+                    command = new SqlCommand("SELECT " + select + " FROM " + from + " WHERE " + where, conn);
                 }
                 try
                 {
@@ -167,9 +183,9 @@ namespace TarifRehberi
                     MessageBox.Show("Veritabanı bağlantı hatası: " + ex.Message);
                 }
 
-                return reader; 
+                return reader;
             }
-            
+
         }
 
 
@@ -205,7 +221,7 @@ namespace TarifRehberi
 
             return reader;
         }
-        public List<string> TumKategorileriGetir() 
+        public List<string> TumKategorileriGetir()
         {
             List<string> kategoriler = new List<string>();
 
@@ -271,7 +287,7 @@ namespace TarifRehberi
 
             return reader;
         }
-         public List<string> TumMalzemeleriGetir() // burada yalnızca malzeme adını getiriyoruz ama diğer bilgiler de gelmeli
+        public List<string> TumMalzemeleriGetir() // burada yalnızca malzeme adını getiriyoruz ama diğer bilgiler de gelmeli
         {
             MessageBox.Show("fonksiyon girdi.");
             List<string> malzemeler = new List<string>();
@@ -303,6 +319,7 @@ namespace TarifRehberi
                 }
                 finally
                 {
+                    MessageBox.Show("Bir hata oluştu: ");
                     conn.Close();
                 }
             }
@@ -369,11 +386,7 @@ namespace TarifRehberi
                     MessageBox.Show("Bir hata oluştu: " + ex.Message);
                     Console.WriteLine("Bir hata oluştu: " + ex.Message);
                 }
-                finally
-                {
-                    conn.Close();
-                }
-                conn.Close();
+                
             }
 
             return tarifler;

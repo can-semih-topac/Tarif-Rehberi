@@ -62,7 +62,7 @@ namespace TarifRehberi
             string secilenMalzeme = "un"; // Örnek malzeme adı
             decimal malzemeMiktari = 500; // Örnek malzeme miktarı
 
-            context.YeniTarifEkle(tarifAdi, kategoriAdi, hazirlanmaSuresi, talimatlar, /*secilenMalzeme,*/ malzemeMiktari);
+            context.YeniTarifEkle(tarifAdi, kategoriAdi, hazirlanmaSuresi, talimatlar, secilenMalzeme, malzemeMiktari);
         }
     }
 }
