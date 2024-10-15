@@ -14,10 +14,17 @@ namespace TarifRehberi
     public partial class TarifEkleForm : Form
     {
         private List<string> malzemeler;
+        private List<string> kategoriler;
+        private List<decimal> secilenMalzemeMiktarlari;
+        // private List<string> eklenenmalzemeler;
+
         public TarifEkleForm()
         {
+            malzemeler = new List<string>();
+            secilenMalzemeMiktarlari = new List<decimal>();
             InitializeComponent();
             LoadKategoriler();
+            LoadMalzemeler();
         }
         private void LoadKategoriler()
         {
@@ -25,6 +32,13 @@ namespace TarifRehberi
             List<string> kategoriler = context.TumKategorileriGetir();
 
             kategoriComboBox.Items.AddRange(kategoriler.ToArray());
+        }
+        private void LoadMalzemeler()
+        {
+            Context context = new Context();
+            List<string> malzemeler = context.TumMalzemeleriGetir();
+
+            malzemeEkleComboBox.Items.AddRange(malzemeler.ToArray());
         }
         private void tarifAdiBox_TextChanged(object sender, EventArgs e)
         {
@@ -44,7 +58,10 @@ namespace TarifRehberi
         }
         private void TarifEkleForm_Load(object sender, EventArgs e)
         {
-
+            Context context = new Context();
+           /* List<string> kategoriler = context.TumKategorileriGetir();
+            Context context2 = new Context();
+            List<string> malzemeler = context2.TumMalzemeleriGetir();*/
         }
         private void yeniMalzemeEkleButonu_Click(object sender, EventArgs e)
         {
@@ -63,28 +80,13 @@ namespace TarifRehberi
         private void kategoriComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            Context context = new Context();
-            List<string> kategoriler = context.TumKategorileriGetir();
-
-            foreach (string kategori in kategoriler)
-            {
-                kategoriComboBox.Items.Add(kategori);
-            }
-            
-
         }
         private void malzemeEkleComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MessageBox.Show("combobox girdi.");
-            Context context = new Context();
-            List<string> malzemeler = context.TumMalzemeleriGetir();
+            
+             
 
-            foreach (string malzeme in malzemeler)
-            {
-                MessageBox.Show("forich girdi.");
-                malzemeEkleComboBox.Items.Add(malzeme);
-            }
-
+            
         }
         private void talimatlarBox_TextChanged(object sender, EventArgs e)
         {
@@ -92,7 +94,25 @@ namespace TarifRehberi
         }
         private void malzemeEkleButonu_Click(object sender, EventArgs e)
         {
-            
+            string secilenMalzeme = malzemeEkleComboBox.SelectedItem != null ? malzemeEkleComboBox.SelectedItem.ToString() : string.Empty;
+            decimal malzemeMiktari;
+            decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
+
+            // Add the selected ingredient to the list
+            malzemeler.Add(secilenMalzeme);
+            // Add the quantity of the selected ingredient to the list
+            secilenMalzemeMiktarlari.Add(malzemeMiktari);
+
+            // Clear the combo box and text box
+            malzemeEkleComboBox.SelectedItem = null;
+            malzemeMiktariBox.Text = string.Empty;
+            listBox1.Items.Clear(); // ListBox'ı temizle
+            for (int i = 0; i < malzemeler.Count; i++)
+            {
+                string malzeme = malzemeler[i] + " - " + secilenMalzemeMiktarlari[i];
+                listBox1.Items.Add(malzeme); // Malzemeler listesindeki her bir malzemeyi ListBox'a ekle
+                MessageBox.Show(malzeme); // Her bir malzemeyi mesaj olarak göster
+            }
         }
         private void malzemeMiktariBox_TextChanged(object sender, EventArgs e)
         {
@@ -102,7 +122,7 @@ namespace TarifRehberi
         {
             
             string tarifAdi = tarifAdiBox.Text;
-             int hazirlanmaSuresi;
+            int hazirlanmaSuresi;
             int.TryParse(hazirlanmaSuresiBox.Text, out hazirlanmaSuresi);
             string secilenKategori = kategoriComboBox.SelectedItem.ToString();
             string secilenMalzeme = malzemeEkleComboBox.SelectedItem != null ? malzemeEkleComboBox.SelectedItem.ToString() : string.Empty;
@@ -110,12 +130,16 @@ namespace TarifRehberi
             decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
             string talimatlar = talimatlarBox.Text;
             Context context = new Context();
-            context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmaSuresi, talimatlar, secilenMalzeme, malzemeMiktari);
-
+            context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmaSuresi, talimatlar, secilenMalzeme, malzemeMiktari, malzemeler, secilenMalzemeMiktarlari);
+            Context context1 = new Context();
+            context1.EkleTarifMalzemeIliskisi(tarifAdi, malzemeler, secilenMalzemeMiktarlari);
             this.Close();
         }
 
-        
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
 

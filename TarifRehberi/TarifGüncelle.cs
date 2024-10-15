@@ -14,10 +14,12 @@ namespace TarifRehberi
     public partial class TarifGüncelleForm : Form
     {
         private List<string> malzemeler;
+        private List<decimal> secilenMalzemeMiktarlari;
         public TarifGüncelleForm()
         {
             InitializeComponent();
             LoadKategoriler();
+            LoadMalzemeler();
         }
         private void LoadKategoriler()
         {
@@ -25,6 +27,13 @@ namespace TarifRehberi
             List<string> kategoriler = context.TumKategorileriGetir();
 
             kategoriComboBox.Items.AddRange(kategoriler.ToArray());
+        }
+        private void LoadMalzemeler()
+        {
+            Context context = new Context();
+            List<string> malzemeler = context.TumMalzemeleriGetir();
+
+            malzemeEkleComboBox.Items.AddRange(malzemeler.ToArray());
         }
         private void tarifAdiBox_TextChanged(object sender, EventArgs e)
         {
@@ -118,7 +127,7 @@ namespace TarifRehberi
             decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
             string talimatlar = talimatlarBox.Text;
             Context context = new Context();
-            context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmaSuresi, talimatlar, secilenMalzeme, malzemeMiktari);
+            context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmaSuresi, talimatlar, secilenMalzeme, malzemeMiktari, malzemeler, secilenMalzemeMiktarlari);
 
             this.Close();
         }

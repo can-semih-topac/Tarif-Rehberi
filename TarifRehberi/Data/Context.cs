@@ -12,7 +12,7 @@ using TarifRehberi.Models;
 namespace TarifRehberi
 {
     public class Context
-    {   
+    {
         // Veritabanı bağlantı dizesi
         private string Path = "C:\\DATA\\ConnectionString.txt";
         private string connectionString;
@@ -64,7 +64,6 @@ namespace TarifRehberi
                 }
             }
         }
-
         public void YeniKategoriEkle(string kategoriAdi)
         {
             conn.Close();
@@ -92,70 +91,7 @@ namespace TarifRehberi
                 }
             }
         }
-        public void YeniTarifEkle(string tarifAdi, string kategoriAdi, int hazirlamaSuresi, string talimatlar, string secilenMalzeme, decimal malzemeMiktari) // malzeme list 
-        {
-            using (conn)
-            {
-                conn.Open();
-                string query0 = "INSERT INTO Tarifler (TarifAdi, KategoriAdi, HazirlamaSuresi, Talimatlar) VALUES (@TarifAdi, @KategoriAdi, @HazirlamaSuresi, @Talimatlar)";
-
-                using (SqlCommand command = new SqlCommand(query0, conn))
-                {
-                    command.Parameters.AddWithValue("@TarifAdi", tarifAdi);
-                    command.Parameters.AddWithValue("@KategoriAdi", kategoriAdi);
-                    command.Parameters.AddWithValue("@HazirlamaSuresi", hazirlamaSuresi);
-                    command.Parameters.AddWithValue("@Talimatlar", talimatlar);
-
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        Console.WriteLine("Tarif başarıyla eklendi.");
-                        MessageBox.Show("Tarif başarıyla eklendi.");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Bir hata oluştu: " + ex.Message);
-                        MessageBox.Show("Bir hata oluştu: " + ex.Message);
-                    }
-                }
-
-                int tarifID;
-                using (SqlDataReader reader = Sorgu("*", DATA.TarifTablosu, "TarifAdi = '" + tarifAdi + "'"))
-                {
-                    if (reader.Read())
-                    {
-                        tarifID = reader.GetInt32(0);
-                    }
-                    else
-                    {
-                        tarifID = -1;
-                    }
-                }
-                MessageBox.Show("tarif id: " + tarifID);
-
-                string query2 = "INSERT INTO TarifMalzemeIliskisi (SecilenMalzeme, MalzemeMiktari, TarifAdi) VALUES (@MalzemeID, @MalzemeMiktar, @TarifID)";
-
-                using (SqlCommand command = new SqlCommand(query2, conn))
-                {
-                    command.Parameters.AddWithValue("@MalzemeID", secilenMalzeme);
-                    command.Parameters.AddWithValue("@MalzemeMiktar", malzemeMiktari);
-                    command.Parameters.AddWithValue("@TarifID", tarifAdi);
-
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        Console.WriteLine("Malzeme başarıyla eklendi.");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Bir hata oluştu: " + ex.Message);
-                    }
-                }
-
-                conn.Close();
-            }
-        }
-
+        
         SqlDataReader Sorgu(string select, string from, string where)
         {
             object[] sonuc = null;
@@ -187,8 +123,6 @@ namespace TarifRehberi
             }
 
         }
-
-
         public SqlDataReader LoadKategoriler()
         {
             string query = "SELECT KategoriAdi FROM Kategoriler";
@@ -287,9 +221,8 @@ namespace TarifRehberi
 
             return reader;
         }
-        public List<string> TumMalzemeleriGetir() // burada yalnızca malzeme adını getiriyoruz ama diğer bilgiler de gelmeli
+        public List<string> TumMalzemeleriGetir()
         {
-            MessageBox.Show("fonksiyon girdi.");
             List<string> malzemeler = new List<string>();
 
             conn.Close();
@@ -298,35 +231,29 @@ namespace TarifRehberi
 
             using (conn)
             {
-                MessageBox.Show("using girdi");
                 SqlCommand command = new SqlCommand(query2, conn);
 
                 try
                 {
-                    MessageBox.Show("malzeme başarıyla gösterildi.");
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-
                         string malzemeAdi = reader.GetString(0);
                         malzemeler.Add(malzemeAdi);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Bir hata oluştu: " + ex.Message);
                     Console.WriteLine("Bir hata oluştu: " + ex.Message);
                 }
                 finally
                 {
-                    MessageBox.Show("Bir hata oluştu: ");
                     conn.Close();
                 }
             }
 
             return malzemeler;
         }
-
         public SqlDataReader LoadTarifler()
         {
             string query = "SELECT TarifAdi FROM Tarifler";
@@ -386,10 +313,134 @@ namespace TarifRehberi
                     MessageBox.Show("Bir hata oluştu: " + ex.Message);
                     Console.WriteLine("Bir hata oluştu: " + ex.Message);
                 }
-                
+
             }
 
             return tarifler;
+        }
+        public void EkleTarifMalzemeIliskisi(string tarifAdi, List<string> malzemeler, List<decimal> secilenMalzemeMiktarlari)
+        {
+            if (conn == null)
+            {
+                MessageBox.Show("conn openlarda sorun var.");
+                return;
+            }
+            using (conn)
+            {
+                conn.Open();
+                MessageBox.Show("conn openlarda sorun yok.");
+                for (int i = 0; i < malzemeler.Count; i++)
+                {
+                    
+                    string malzemeAdi = malzemeler[i];
+                    decimal malzemeMiktar = secilenMalzemeMiktarlari[i];
+
+                    int malzemeID = -1;
+                    string query = "SELECT MalzemeID FROM Malzemeler WHERE MalzemeAdi = @MalzemeAdi";
+
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@MalzemeAdi", malzemeAdi);
+
+                        try
+                        {
+                            malzemeID = (int)command.ExecuteScalar(); // MalzemeID'yi alıyor
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                            Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                        }
+                    }
+                    // burada tarifAdi ni tanımlamak gerekiyor.
+                    int tarifID = -1;
+                    string query1 = "SELECT TarifID FROM Tarifler WHERE TarifAdi = @TarifAdi";
+                    
+                    using (SqlCommand command = new SqlCommand(query1, conn))
+                    {
+                        command.Parameters.AddWithValue("@TarifAdi", tarifAdi);
+
+                        try
+                        {
+                            tarifID = (int)command.ExecuteScalar(); // TarifID'yi alıyor
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                            Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                        }
+                    }
+                    
+                    
+
+                    if (malzemeID != -1)
+                    {
+                        string insertQuery = "INSERT INTO TarifMalzemeIliskisi (TarifID, MalzemeID, MalzemeMiktar) VALUES (@TarifAdi, @MalzemeID, @MalzemeMiktar)";
+
+                        using (SqlCommand insertCommand = new SqlCommand(insertQuery, conn))
+                        {
+                            insertCommand.Parameters.AddWithValue("@TarifID", tarifID);
+                            insertCommand.Parameters.AddWithValue("@MalzemeID", malzemeID);
+                            insertCommand.Parameters.AddWithValue("@MalzemeMiktar", malzemeMiktar);
+
+                            try
+                            {
+                                insertCommand.ExecuteNonQuery();
+                                MessageBox.Show("Tarif malzeme ilişkisi başarıyla eklendi.");
+                                Console.WriteLine("Tarif malzeme ilişkisi başarıyla eklendi.");
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                                Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Malzeme bulunamadı: " + malzemeAdi);
+                        Console.WriteLine("Malzeme bulunamadı: " + malzemeAdi);
+                    }
+                }
+
+                conn.Close();
+            }
+        }
+        public void YeniTarifEkle(string tarifAdi, string kategoriAdi, int hazirlamaSuresi, string talimatlar, string secilenMalzeme, decimal malzemeMiktari, List<string> malzemeler, List<decimal> secilenMalzemeler)
+        {
+            if (conn == null)
+            {
+                MessageBox.Show("conn openlarda sorun var.");
+                return;
+            }
+
+            
+
+            using (conn)
+            {
+                conn.Open();
+                string query0 = "INSERT INTO Tarifler (TarifAdi, KategoriAdi, HazirlamaSuresi, Talimatlar) VALUES (@TarifAdi, @KategoriAdi, @HazirlamaSuresi, @Talimatlar)";
+
+                using (SqlCommand command = new SqlCommand(query0, conn))
+                {
+                    command.Parameters.AddWithValue("@TarifAdi", tarifAdi);
+                    command.Parameters.AddWithValue("@KategoriAdi", kategoriAdi);
+                    command.Parameters.AddWithValue("@HazirlamaSuresi", hazirlamaSuresi);
+                    command.Parameters.AddWithValue("@Talimatlar", talimatlar);
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Tarif başarıyla eklendi.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                    }
+                }
+
+                conn.Close();
+            }
         }
     }
 }
