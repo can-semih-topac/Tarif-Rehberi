@@ -366,7 +366,7 @@ namespace TarifRehberi
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                            MessageBox.Show("Bir hata oluştu:1 " + ex.Message);
                             Console.WriteLine("Bir hata oluştu: " + ex.Message);
                         }
                     }
@@ -375,7 +375,7 @@ namespace TarifRehberi
 
                     if (malzemeID != -1)
                     {
-                        string insertQuery = "INSERT INTO TarifMalzemeIliskisi (TarifID, MalzemeID, MalzemeMiktar) VALUES (@TarifAdi, @MalzemeID, @MalzemeMiktar)";
+                        string insertQuery = "INSERT INTO TarifMalzemeIliskisi (TarifID, MalzemeID, MalzemeMiktar) VALUES (@TarifID, @MalzemeID, @MalzemeMiktar)";
 
                         using (SqlCommand insertCommand = new SqlCommand(insertQuery, conn))
                         {
@@ -391,7 +391,7 @@ namespace TarifRehberi
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                                MessageBox.Show("Bir hata oluştu:2 " + ex.Message);
                                 Console.WriteLine("Bir hata oluştu: " + ex.Message);
                             }
                         }
@@ -406,7 +406,7 @@ namespace TarifRehberi
                 conn.Close();
             }
         }
-        public void YeniTarifEkle(string tarifAdi, string kategoriAdi, int hazirlamaSuresi, string talimatlar, string secilenMalzeme, decimal malzemeMiktari, List<string> malzemeler, List<decimal> secilenMalzemeler)
+        public void YeniTarifEkle(string tarifAdi, string kategoriAdi, int hazirlamaSuresi, string talimatlar)
         {
             if (conn == null)
             {

@@ -127,7 +127,7 @@ namespace TarifRehberi
             decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
             string talimatlar = talimatlarBox.Text;
             Context context = new Context();
-            context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmaSuresi, talimatlar, secilenMalzeme, malzemeMiktari, malzemeler, secilenMalzemeMiktarlari);
+            context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmaSuresi, talimatlar);
 
             this.Close();
         }
