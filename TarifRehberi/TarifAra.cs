@@ -54,13 +54,7 @@ namespace TarifRehberi
 
         private void tariflerListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Context context = new Context();
-            List<string> tarifler = context.TumTarifleriGetir();
 
-            foreach (string tarif in tarifler)
-            {
-                tariflerListBox.Items.Add(tarif);
-            }
         }
     }
 }

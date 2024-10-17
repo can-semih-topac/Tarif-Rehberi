@@ -86,7 +86,6 @@ namespace TarifRehberi
             
              
 
-            
         }
         private void talimatlarBox_TextChanged(object sender, EventArgs e)
         {
@@ -98,12 +97,8 @@ namespace TarifRehberi
             decimal malzemeMiktari;
             decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
 
-            // Add the selected ingredient to the list
             malzemeler.Add(secilenMalzeme);
-            // Add the quantity of the selected ingredient to the list
             secilenMalzemeMiktarlari.Add(malzemeMiktari);
-
-            // Clear the combo box and text box
             malzemeEkleComboBox.SelectedItem = null;
             malzemeMiktariBox.Text = string.Empty;
             listBox1.Items.Clear(); // ListBox'ı temizle
