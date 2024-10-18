@@ -34,6 +34,45 @@ namespace TarifRehberi
             }
             conn = new SqlConnection(connectionString);
         }
+        public List<Tarif>  TariflerAra(string TarifAdi) {
+            List<Tarif> tarifler = new List<Tarif>();
+            using(conn)
+            {
+                conn.Open();
+                string Equery1 = "Select * From Tarifler Where TarifAdi = @TarifAdi";
+                SqlDataReader reader = null;
+                using (SqlCommand command = new SqlCommand(Equery1,conn))
+                {
+                    command.Parameters.AddWithValue("@TarifAdi", TarifAdi);
+                    try
+                    {
+                        reader=command.ExecuteReader();
+                        
+                    }catch (Exception ex)
+                    {
+                        MessageBox.Show("Bir hata oluştu:(TarifArama) " + ex.Message);
+                        Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                    }
+                    while (reader.Read()) 
+                    {
+                        Tarif tarif = new Tarif(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4));
+                        tarifler.Add(tarif);    
+                    }
+                } 
+            }
+            return tarifler;
+        }
+        public List<Tarif> MalzemeTarifAra(string TarifAdi)
+        {
+            List<Tarif> tarifler=new List<Tarif>();
+            using (conn)
+            {
+                
+            }
+
+            return tarifler;
+
+        }
 
         public void YeniMalzemeEkle(string malzemeAdi, string malzemeBirimi, decimal birimFiyat, decimal toplamMiktar)
         {
@@ -196,11 +235,12 @@ namespace TarifRehberi
 
             using (conn)
             {
-                SqlCommand command = new SqlCommand(query2, conn);
+                conn.Open ();
+                using(SqlCommand command = new SqlCommand()) { 
 
                 try
                 {
-                    conn.Open();
+                    
                     reader = command.ExecuteReader();
                 }
                 catch (Exception ex)
@@ -217,6 +257,7 @@ namespace TarifRehberi
                 }
 
                 conn.Close();
+                }
             }
 
             return reader;
