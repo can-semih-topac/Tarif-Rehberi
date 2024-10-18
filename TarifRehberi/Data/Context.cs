@@ -286,13 +286,13 @@ namespace TarifRehberi
 
             return reader;
         }
-        public List<string> TumTarifleriGetir()
+        public List<(string, string, int)> TumTarifleriGetir()
         {
-            List<string> tarifler = new List<string>();
+            List<(string, string, int)> tarifler = new List<(string, string, int)>();
 
             conn.Close();
             conn.Open();
-            string query = "SELECT TarifAdi FROM Tarifler";
+            string query = "SELECT TarifAdi, KategoriAdi, HazirlamaSuresi FROM Tarifler";
 
             using (conn)
             {
@@ -304,7 +304,9 @@ namespace TarifRehberi
                     while (reader.Read())
                     {
                         string tarifAdi = reader.GetString(0);
-                        tarifler.Add(tarifAdi);
+                        string kategoriAdi = reader.GetString(1);
+                        int hazirlamaSuresi = reader.GetInt32(2);
+                        tarifler.Add((tarifAdi, kategoriAdi, hazirlamaSuresi));
                     }
                     Console.WriteLine("Tarif başarıyla gösterildi.");
                 }

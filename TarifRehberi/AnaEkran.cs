@@ -16,6 +16,20 @@ namespace TarifRehberi
         {
 
             InitializeComponent();
+            LoadTarifler();
+        }
+        private void LoadTarifler()
+        {
+            Context context = new Context();
+            List<(string, string, int)> tarifler = context.TumTarifleriGetir();
+
+            foreach (var tarif in tarifler)
+            {
+                listBox1.Items.Add(string.Format("{0,-10} {1,5}dk      {2,-10} ", tarif.Item1, tarif.Item3, tarif.Item2));
+                listBox1.Items.Add(""); // Add an empty item for spacing
+            }
+
+            listBox1.Font = new Font(listBox1.Font.FontFamily, 10);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -64,6 +78,21 @@ namespace TarifRehberi
             decimal malzemeMiktari = 500; // Örnek malzeme miktarı
 
             // context.YeniTarifEkle(tarifAdi, kategoriAdi, hazirlanmaSuresi, talimatlar, secilenMalzeme, malzemeMiktari, malzemeler);
+        }
+
+        private void AnaEkran_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -30,24 +30,13 @@ namespace TarifRehberi
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tarifeklebutonu = new System.Windows.Forms.Button();
             this.tarifguncellebutonu = new System.Windows.Forms.Button();
             this.tarifsilbutonu = new System.Windows.Forms.Button();
             this.tarifAraButonu = new System.Windows.Forms.Button();
             this.oneriAlButonu = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(179, 111);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(797, 389);
-            this.dataGridView1.TabIndex = 0;
             // 
             // tarifeklebutonu
             // 
@@ -101,21 +90,31 @@ namespace TarifRehberi
             this.oneriAlButonu.UseVisualStyleBackColor = true;
             this.oneriAlButonu.Click += new System.EventHandler(this.oneriAlButonu_Click);
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(217, 111);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(766, 388);
+            this.listBox1.TabIndex = 6;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
             // AnaEkran
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.oneriAlButonu);
             this.Controls.Add(this.tarifAraButonu);
             this.Controls.Add(this.tarifsilbutonu);
             this.Controls.Add(this.tarifguncellebutonu);
             this.Controls.Add(this.tarifeklebutonu);
-            this.Controls.Add(this.dataGridView1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AnaEkran";
             this.Text = "Ana Ekran";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.AnaEkran_Load);
             this.ResumeLayout(false);
 
         }
@@ -123,13 +122,12 @@ namespace TarifRehberi
         
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button tarifeklebutonu;
         private System.Windows.Forms.Button tarifguncellebutonu;
         private System.Windows.Forms.Button tarifsilbutonu;
         private System.Windows.Forms.Button tarifAraButonu;
         private System.Windows.Forms.Button oneriAlButonu;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 
