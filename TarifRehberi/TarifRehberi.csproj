@@ -56,6 +56,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Data\Context.cs" />
     <Compile Include="AnaEkran.cs">
       <SubType>Form</SubType>
@@ -110,6 +115,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TarifRehberiDBDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="TarifRehberiDBDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TarifRehberiDBDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="TarifRehberiDBDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TarifRehberiDBDataSet2.xsd</DependentUpon>
     </Compile>
     <Compile Include="TarifSil.cs">
       <SubType>Form</SubType>
@@ -179,6 +194,17 @@
     <None Include="DataSet1.xss">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </None>
+    <None Include="DataSet2.xsc">
+      <DependentUpon>DataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSet2.xss">
+      <DependentUpon>DataSet2.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -198,6 +224,28 @@
     </None>
     <None Include="TarifRehberiDBDataSet.xss">
       <DependentUpon>TarifRehberiDBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="TarifRehberiDBDataSet1.xsc">
+      <DependentUpon>TarifRehberiDBDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="TarifRehberiDBDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TarifRehberiDBDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="TarifRehberiDBDataSet1.xss">
+      <DependentUpon>TarifRehberiDBDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="TarifRehberiDBDataSet2.xsc">
+      <DependentUpon>TarifRehberiDBDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="TarifRehberiDBDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TarifRehberiDBDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="TarifRehberiDBDataSet2.xss">
+      <DependentUpon>TarifRehberiDBDataSet2.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
