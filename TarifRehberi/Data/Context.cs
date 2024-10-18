@@ -254,6 +254,20 @@ namespace TarifRehberi
 
             return malzemeler;
         }
+        
+        public string MalzemeBirimGetir(string malzeme)
+        {
+            string query = "SELECT MalzemeBirim FROM Malzemeler WHERE MalzemeAdi = @malzeme";
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@malzeme", malzeme);
+                conn.Open();
+                string birim = (string)cmd.ExecuteScalar();
+                conn.Close();
+                return birim;
+            }
+        }
+        
         public SqlDataReader LoadTarifler()
         {
             string query = "SELECT TarifAdi FROM Tarifler";
