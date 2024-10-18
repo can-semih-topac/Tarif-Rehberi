@@ -16,6 +16,8 @@ namespace TarifRehberi
         private List<string> malzemeler;
         private List<string> kategoriler;
         private List<decimal> secilenMalzemeMiktarlari;
+        private object context;
+
         // private List<string> eklenenmalzemeler;
 
         public TarifEkleForm()
@@ -25,6 +27,8 @@ namespace TarifRehberi
             InitializeComponent();
             LoadKategoriler();
             LoadMalzemeler();
+            
+            
         }
         private void LoadKategoriler()
         {
@@ -40,6 +44,7 @@ namespace TarifRehberi
 
             malzemeEkleComboBox.Items.AddRange(malzemeler.ToArray());
         }
+        
         private void tarifAdiBox_TextChanged(object sender, EventArgs e)
         {
 
@@ -83,10 +88,20 @@ namespace TarifRehberi
         }
         private void malzemeEkleComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-             
+            string secilenMalzeme = malzemeEkleComboBox.SelectedItem != null ? malzemeEkleComboBox.SelectedItem.ToString() : string.Empty;
+            Context context = new Context();
+            string birim = context.MalzemeBirimGetir(secilenMalzeme);
 
+            if (!string.IsNullOrEmpty(birim))
+            {
+                listBox2.Items.Clear();
+                listBox2.Items.Add(birim);
+            }
+            
         }
+
+        
+
         private void talimatlarBox_TextChanged(object sender, EventArgs e)
         {
 
@@ -99,14 +114,16 @@ namespace TarifRehberi
 
             malzemeler.Add(secilenMalzeme);
             secilenMalzemeMiktarlari.Add(malzemeMiktari);
+            Context context = new Context();
+            string birim = context.MalzemeBirimGetir(secilenMalzeme);
             malzemeEkleComboBox.SelectedItem = null;
             malzemeMiktariBox.Text = string.Empty;
             listBox1.Items.Clear(); // ListBox'ı temizle
+            listBox2.Items.Clear();
             for (int i = 0; i < malzemeler.Count; i++)
             {
-                string malzeme = malzemeler[i] + " - " + secilenMalzemeMiktarlari[i];
+                string malzeme = malzemeler[i] + " - " + secilenMalzemeMiktarlari[i] + " " + birim;
                 listBox1.Items.Add(malzeme); // Malzemeler listesindeki her bir malzemeyi ListBox'a ekle
-                MessageBox.Show(malzeme); // Her bir malzemeyi mesaj olarak göster
             }
         }
         private void malzemeMiktariBox_TextChanged(object sender, EventArgs e)
@@ -134,6 +151,11 @@ namespace TarifRehberi
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //birimin yazılacağı kısım
         }
     }
 }
