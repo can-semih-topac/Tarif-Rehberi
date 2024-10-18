@@ -331,6 +331,24 @@ namespace TarifRehberi
             {
                 conn.Open();
                 MessageBox.Show("conn openlarda sorun yok.");
+                decimal maliyet = 0;
+                int tarifID = -1;
+                string query1 = "SELECT TarifID FROM Tarifler WHERE TarifAdi = @TarifAdi";
+
+                using (SqlCommand command = new SqlCommand(query1, conn))
+                {
+                    command.Parameters.AddWithValue("@TarifAdi", tarifAdi);
+
+                    try
+                    {
+                        tarifID = (int)command.ExecuteScalar(); // TarifID'yi alıyor
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Bir hata oluştu:1 " + ex.Message);
+                        Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                    }
+                }
                 for (int i = 0; i < malzemeler.Count; i++)
                 {
                     
@@ -339,6 +357,7 @@ namespace TarifRehberi
 
                     int malzemeID = -1;
                     string query = "SELECT MalzemeID FROM Malzemeler WHERE MalzemeAdi = @MalzemeAdi";
+                    string queryEwiz1 = "SELECT BirimFiyat FROM Malzemeler WHERE MalzemeAdi = @MalzemeAdi";
 
                     using (SqlCommand command = new SqlCommand(query, conn))
                     {
@@ -346,7 +365,7 @@ namespace TarifRehberi
 
                         try
                         {
-                            malzemeID = (int)command.ExecuteScalar(); // MalzemeID'yi alıyor
+                            malzemeID = (int)command.ExecuteScalar(); // MalzemeID'yi alıyor                            
                         }
                         catch (Exception ex)
                         {
@@ -355,25 +374,21 @@ namespace TarifRehberi
                         }
                     }
                     // burada tarifAdi ni tanımlamak gerekiyor.
-                    int tarifID = -1;
-                    string query1 = "SELECT TarifID FROM Tarifler WHERE TarifAdi = @TarifAdi";
-                    
-                    using (SqlCommand command = new SqlCommand(query1, conn))
+                    using (SqlCommand command = new SqlCommand(queryEwiz1, conn))
                     {
-                        command.Parameters.AddWithValue("@TarifAdi", tarifAdi);
+                        command.Parameters.AddWithValue("@MalzemeAdi", malzemeAdi);
 
                         try
                         {
-                            tarifID = (int)command.ExecuteScalar(); // TarifID'yi alıyor
+                            decimal fiyat = (decimal)command.ExecuteScalar(); // MalzemeID'yi alıyor
+                            maliyet += fiyat * secilenMalzemeMiktarlari[i];
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Bir hata oluştu:1 " + ex.Message);
+                            MessageBox.Show("Bir hata oluştu:(Maliyet) " + ex.Message);
                             Console.WriteLine("Bir hata oluştu: " + ex.Message);
                         }
                     }
-                    
-                    
 
                     if (malzemeID != -1)
                     {
@@ -404,9 +419,29 @@ namespace TarifRehberi
                         Console.WriteLine("Malzeme bulunamadı: " + malzemeAdi);
                     }
                 }
+                string ewiz2query = "INSERT INTO Maliyet (TarifID, Maliyet) VALUES (@TarifID, @Maliyet)";
+                using (SqlCommand insertCommand2 = new SqlCommand(ewiz2query, conn))
+                {
+                    insertCommand2.Parameters.AddWithValue("@TarifID", tarifID);
+                    insertCommand2.Parameters.AddWithValue("@Maliyet", maliyet);
+                    
+
+                    try
+                    {
+                        insertCommand2.ExecuteNonQuery();
+                        MessageBox.Show("Maliyet ilişkisi başarıyla eklendi.");
+                        Console.WriteLine("Maliyet ilişkisi başarıyla eklendi.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Bir hata oluştu:(Maliyet Tablosuna ekleme hatası) " + ex.Message);
+                        Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                    }
+                }
 
                 conn.Close();
             }
+
         }
         public void YeniTarifEkle(string tarifAdi, string kategoriAdi, int hazirlamaSuresi, string talimatlar)
         {
