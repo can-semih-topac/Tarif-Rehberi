@@ -276,7 +276,7 @@ namespace TarifRehberi
 
                 try
                 {
-                    SqlDataReader reader = command.ExecuteReader();
+                    SqlDataReader reader = command.ExecuteReader(); // test
                     while (reader.Read())
                     {
                         string malzemeAdi = reader.GetString(0);
