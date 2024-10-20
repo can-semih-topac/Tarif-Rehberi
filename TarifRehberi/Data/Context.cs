@@ -39,11 +39,11 @@ namespace TarifRehberi
             using(conn)
             {
                 conn.Open();
-                string Equery1 = "Select * From Tarifler Where TarifAdi = @TarifAdi";
+                string Equery1 = "Select * From Tarifler Where TarifAdi LIKE @TarifAdi";
                 SqlDataReader reader = null;
                 using (SqlCommand command = new SqlCommand(Equery1,conn))
                 {
-                    command.Parameters.AddWithValue("@TarifAdi", TarifAdi);
+                    command.Parameters.AddWithValue("@TarifAdi", "%" + TarifAdi + "%");
                     try
                     {
                         reader=command.ExecuteReader();
@@ -62,12 +62,33 @@ namespace TarifRehberi
             }
             return tarifler;
         }
-        public List<Tarif> MalzemeTarifAra(string TarifAdi)
+        public List<Tarif> MalzemeTarifAra(string MalzemeAdi)
         {
             List<Tarif> tarifler=new List<Tarif>();
+            
             using (conn)
             {
-                
+                conn.Open();
+                int MalzemeID= -1;
+                string Equery1 = "Select MalzemeID From Malzemeler Where MalzemeAdi = @MalzemeAdi";
+                string Equery2 = "Select MalzemeID From TarifMalzemeIli Where MalzemeAdi = @MalzemeID";
+                using (SqlCommand command = new SqlCommand(Equery1,conn))
+                { 
+                    command.Parameters.AddWithValue("@MalzemeAdi",MalzemeAdi);
+                    try
+                    {
+                        MalzemeID = (int)command.ExecuteScalar();
+                    }catch(Exception ex)
+                    {
+                        MessageBox.Show("MalzemeId alınırken hata yaşandı (MalzemeAratarif)",ex.ToString());   
+                    }
+                }
+                using (SqlCommand command = new SqlCommand())
+                { 
+                                  
+                }
+
+
             }
 
             return tarifler;
