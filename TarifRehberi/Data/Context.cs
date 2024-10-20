@@ -341,27 +341,30 @@ namespace TarifRehberi
 
             return reader;
         }
-        public List<(string, string, int)> TumTarifleriGetir()
+        public List<Tarif> TumTarifleriGetir()
         {
-            List<(string, string, int)> tarifler = new List<(string, string, int)>();
+            List<Tarif> tarifler = new List<Tarif>();
 
-            conn.Close();
-            conn.Open();
-            string query = "SELECT TarifAdi, KategoriAdi, HazirlamaSuresi FROM Tarifler";
+            
+            string query = "SELECT * FROM Tarifler";
 
             using (conn)
             {
-                SqlCommand command = new SqlCommand(query, conn);
+              conn.Open();
+                using (SqlCommand command = new SqlCommand(query, conn)) {  
+                    
 
                 try
                 {
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        string tarifAdi = reader.GetString(0);
-                        string kategoriAdi = reader.GetString(1);
+                        int id=reader.GetInt32(0);
+                        string tarifAdi = reader.GetString(1);
+                        string kategoriAdi = reader.GetString(3);
                         int hazirlamaSuresi = reader.GetInt32(2);
-                        tarifler.Add((tarifAdi, kategoriAdi, hazirlamaSuresi));
+                        string talimatlar = reader.GetString(4);
+                        tarifler.Add(new Tarif(id,tarifAdi, kategoriAdi, hazirlamaSuresi,talimatlar));
                     }
                     Console.WriteLine("Tarif başarıyla gösterildi.");
                 }
@@ -369,6 +372,7 @@ namespace TarifRehberi
                 {
                     MessageBox.Show("Bir hata oluştu: " + ex.Message);
                     Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                }
                 }
 
             }
@@ -598,6 +602,43 @@ namespace TarifRehberi
                     return (null, null, 0, null);
                 }
             }
+        }
+        public Tarif TumTarifiGetir(string tarifAdi)
+        {
+            Tarif tarif = null;
+            conn.Close();
+            conn.Open();
+            string query = "SELECT * FROM Tarifler WHERE TarifAdi = @TarifAdi";
+
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                command.Parameters.AddWithValue("@TarifAdi", tarifAdi);
+
+                try
+                {
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        int tarifID = reader.GetInt32(0);
+                        string kategori = reader.GetString(2);
+                        int hazirlamaSuresi = reader.GetInt32(3);
+                        string talimatlar = reader.GetString(4);
+
+                        tarif = new Tarif(tarifID, tarifAdi, kategori, hazirlamaSuresi, talimatlar);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Tarif bulunamadı.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                    Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                }
+            }
+
+            return tarif;
         }
 
     }

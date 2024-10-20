@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TarifRehberi.Models;
 
 namespace TarifRehberi
 {
@@ -20,15 +21,15 @@ namespace TarifRehberi
         private void LoadTarifler()
         {
             Context context = new Context();
-            List<(string, string, int)> tarifler = context.TumTarifleriGetir();
+            List<Tarif> tarifler = context.TumTarifleriGetir();
 
-            foreach (var tarif in tarifler)
+            /*foreach (var tarif in tarifler)
             {
                 tariflerListBox.Items.Add(string.Format("{0,-10} {1,5}dk      {2,-10} ", tarif.Item1, tarif.Item3, tarif.Item2));
                 tariflerListBox.Items.Add(""); // Add an empty item for spacing
             }
 
-            tariflerListBox.Font = new Font(tariflerListBox.Font.FontFamily, 10);
+            tariflerListBox.Font = new Font(tariflerListBox.Font.FontFamily, 10);*/
         }
 
         private void label1_Click(object sender, EventArgs e)
