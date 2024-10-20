@@ -47,6 +47,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.malzemeMiktariBox = new System.Windows.Forms.TextBox();
             this.malzemeEkleButonu = new System.Windows.Forms.Button();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // tarifAdiBox
@@ -54,7 +55,7 @@
             this.tarifAdiBox.Location = new System.Drawing.Point(183, 78);
             this.tarifAdiBox.Margin = new System.Windows.Forms.Padding(4);
             this.tarifAdiBox.Name = "tarifAdiBox";
-            this.tarifAdiBox.Size = new System.Drawing.Size(168, 22);
+            this.tarifAdiBox.Size = new System.Drawing.Size(240, 22);
             this.tarifAdiBox.TabIndex = 0;
             this.tarifAdiBox.TextChanged += new System.EventHandler(this.tarifAdiBox_TextChanged);
             // 
@@ -64,7 +65,7 @@
             this.kategoriComboBox.Location = new System.Drawing.Point(183, 156);
             this.kategoriComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.kategoriComboBox.Name = "kategoriComboBox";
-            this.kategoriComboBox.Size = new System.Drawing.Size(168, 24);
+            this.kategoriComboBox.Size = new System.Drawing.Size(240, 24);
             this.kategoriComboBox.TabIndex = 1;
             this.kategoriComboBox.SelectedIndexChanged += new System.EventHandler(this.kategoriComboBox_SelectedIndexChanged);
             // 
@@ -104,7 +105,7 @@
             this.hazirlanmaSuresiBox.Location = new System.Drawing.Point(183, 116);
             this.hazirlanmaSuresiBox.Margin = new System.Windows.Forms.Padding(4);
             this.hazirlanmaSuresiBox.Name = "hazirlanmaSuresiBox";
-            this.hazirlanmaSuresiBox.Size = new System.Drawing.Size(168, 22);
+            this.hazirlanmaSuresiBox.Size = new System.Drawing.Size(203, 22);
             this.hazirlanmaSuresiBox.TabIndex = 5;
             this.hazirlanmaSuresiBox.TextChanged += new System.EventHandler(this.hazirlanmaSuresiBox_TextChanged);
             // 
@@ -143,7 +144,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(360, 122);
+            this.label5.Location = new System.Drawing.Point(401, 122);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(22, 16);
             this.label5.TabIndex = 10;
@@ -156,7 +157,7 @@
             this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(56, 325);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(384, 148);
+            this.listBox1.Size = new System.Drawing.Size(367, 148);
             this.listBox1.TabIndex = 11;
             // 
             // label6
@@ -203,7 +204,7 @@
             this.malzemeEkleComboBox.FormattingEnabled = true;
             this.malzemeEkleComboBox.Location = new System.Drawing.Point(183, 195);
             this.malzemeEkleComboBox.Name = "malzemeEkleComboBox";
-            this.malzemeEkleComboBox.Size = new System.Drawing.Size(168, 24);
+            this.malzemeEkleComboBox.Size = new System.Drawing.Size(240, 24);
             this.malzemeEkleComboBox.TabIndex = 16;
             this.malzemeEkleComboBox.SelectedIndexChanged += new System.EventHandler(this.malzemeEkleComboBox_SelectedIndexChanged);
             // 
@@ -226,7 +227,7 @@
             // 
             // malzemeEkleButonu
             // 
-            this.malzemeEkleButonu.Location = new System.Drawing.Point(276, 230);
+            this.malzemeEkleButonu.Location = new System.Drawing.Point(348, 229);
             this.malzemeEkleButonu.Name = "malzemeEkleButonu";
             this.malzemeEkleButonu.Size = new System.Drawing.Size(75, 23);
             this.malzemeEkleButonu.TabIndex = 19;
@@ -234,11 +235,22 @@
             this.malzemeEkleButonu.UseVisualStyleBackColor = true;
             this.malzemeEkleButonu.Click += new System.EventHandler(this.malzemeEkleButonu_Click);
             // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 16;
+            this.listBox2.Location = new System.Drawing.Point(274, 232);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(68, 20);
+            this.listBox2.TabIndex = 20;
+            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
+            // 
             // TarifGüncelleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.listBox2);
             this.Controls.Add(this.malzemeEkleButonu);
             this.Controls.Add(this.malzemeMiktariBox);
             this.Controls.Add(this.label8);
@@ -288,5 +300,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox malzemeMiktariBox;
         private System.Windows.Forms.Button malzemeEkleButonu;
+        private System.Windows.Forms.ListBox listBox2;
     }
 }

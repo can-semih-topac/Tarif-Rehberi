@@ -534,5 +534,71 @@ namespace TarifRehberi
                 conn.Close();
             }
         }
+        public void TarifGüncelleMethodu(string tarifAdi)
+        {
+            string query = "SELECT * FROM Tarifler WHERE TarifAdi = @TarifAdi";
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                command.Parameters.AddWithValue("@TarifAdi", tarifAdi);
+                conn.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    string kategoriAdi = reader.GetString(reader.GetOrdinal("KategoriAdi"));
+                    int hazirlamaSuresi = reader.GetInt32(reader.GetOrdinal("HazirlamaSuresi"));
+                    string talimatlar = reader.GetString(reader.GetOrdinal("Talimatlar"));
+
+                    // Tarifin bilgilerini kullanarak istediğiniz işlemleri yapabilirsiniz
+                    // Örneğin, bu bilgileri bir nesne içinde saklayabilir veya başka bir yönteme aktarabilirsiniz
+
+                    Console.WriteLine("Tarif Adı: " + tarifAdi);
+                    Console.WriteLine("Kategori Adı: " + kategoriAdi);
+                    Console.WriteLine("Hazırlama Süresi: " + hazirlamaSuresi);
+                    Console.WriteLine("Talimatlar: " + talimatlar);
+                }
+                else
+                {
+                    Console.WriteLine("Tarif bulunamadı.");
+                }
+                conn.Close();
+            }
+        } // kullanmıyoruz
+
+
+
+        public (string, string, int, string) TarifBilgileriGetir(string TarifAdi)
+        {
+            // MessageBox.Show("Tarif bilgileri getir fonksiyonuna girdi");
+            string query = "SELECT KategoriAdi, HazirlamaSuresi, Talimatlar FROM Tarifler WHERE TarifAdi = @TarifAdi";
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                command.Parameters.AddWithValue("@TarifAdi", TarifAdi);
+                conn.Close();
+                conn.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    // MessageBox.Show("Tarif bilgileri getir fonksiyonunda okuma yapıldı");
+
+                    string kategoriAdi = reader.GetString(reader.GetOrdinal("KategoriAdi"));
+                    int hazirlamaSuresi = reader.GetInt32(reader.GetOrdinal("HazirlamaSuresi"));
+                    string talimatlar = reader.GetString(reader.GetOrdinal("Talimatlar"));
+
+                    /*
+                    MessageBox.Show("Kategori Adı: " + kategoriAdi);
+                    MessageBox.Show("Hazırlama Süresi: " + hazirlamaSuresi);
+                    MessageBox.Show("Talimatlar: " + talimatlar);
+                    MessageBox.Show("Tarif Adı: " + TarifAdi);
+                    */
+                    return (TarifAdi, kategoriAdi, hazirlamaSuresi, talimatlar);
+                }
+                else
+                {
+                    MessageBox.Show("Tarif bulunamadı.");
+                    return (null, null, 0, null);
+                }
+            }
+        }
+
     }
 }

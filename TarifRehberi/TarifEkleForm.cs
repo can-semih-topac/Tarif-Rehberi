@@ -27,8 +27,8 @@ namespace TarifRehberi
             InitializeComponent();
             LoadKategoriler();
             LoadMalzemeler();
-            
-            
+
+
         }
         private void LoadKategoriler()
         {
@@ -44,7 +44,7 @@ namespace TarifRehberi
 
             malzemeEkleComboBox.Items.AddRange(malzemeler.ToArray());
         }
-        
+
         private void tarifAdiBox_TextChanged(object sender, EventArgs e)
         {
 
@@ -63,10 +63,7 @@ namespace TarifRehberi
         }
         private void TarifEkleForm_Load(object sender, EventArgs e)
         {
-            Context context = new Context();
-           /* List<string> kategoriler = context.TumKategorileriGetir();
-            Context context2 = new Context();
-            List<string> malzemeler = context2.TumMalzemeleriGetir();*/
+
         }
         private void yeniMalzemeEkleButonu_Click(object sender, EventArgs e)
         {
@@ -84,6 +81,13 @@ namespace TarifRehberi
         }
         private void kategoriComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Context context = new Context();
+            List<string> kategoriler = context.TumKategorileriGetir();
+
+            foreach (string kategori in kategoriler)
+            {
+                kategoriComboBox.Items.Add(kategori);
+            }
 
         }
         private void malzemeEkleComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -97,10 +101,10 @@ namespace TarifRehberi
                 listBox2.Items.Clear();
                 listBox2.Items.Add(birim);
             }
-            
+
         }
 
-        
+
 
         private void talimatlarBox_TextChanged(object sender, EventArgs e)
         {
@@ -132,7 +136,7 @@ namespace TarifRehberi
         }
         private void tarifitamamlabutonu_Click(object sender, EventArgs e)
         {
-            
+
             string tarifAdi = tarifAdiBox.Text;
             int hazirlanmaSuresi;
             int.TryParse(hazirlanmaSuresiBox.Text, out hazirlanmaSuresi);
@@ -150,7 +154,7 @@ namespace TarifRehberi
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -159,4 +163,3 @@ namespace TarifRehberi
         }
     }
 }
-
