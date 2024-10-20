@@ -55,7 +55,7 @@ namespace TarifRehberi
                     }
                     while (reader.Read()) 
                     {
-                        Tarif tarif = new Tarif(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4));
+                        Tarif tarif = new Tarif(reader.GetInt32(0), reader.GetString(1), reader.GetString(3), reader.GetInt32(2), reader.GetString(4));
                         tarifler.Add(tarif);    
                     }
                 } 
@@ -65,30 +65,46 @@ namespace TarifRehberi
         public List<Tarif> MalzemeTarifAra(string MalzemeAdi)
         {
             List<Tarif> tarifler=new List<Tarif>();
-            
+
             using (conn)
             {
                 conn.Open();
-                int MalzemeID= -1;
+                int MalzemeID = -1;
                 string Equery1 = "Select MalzemeID From Malzemeler Where MalzemeAdi = @MalzemeAdi";
-                string Equery2 = "Select MalzemeID From TarifMalzemeIli Where MalzemeAdi = @MalzemeID";
-                using (SqlCommand command = new SqlCommand(Equery1,conn))
-                { 
-                    command.Parameters.AddWithValue("@MalzemeAdi",MalzemeAdi);
+                
+                string Equery2 = "SELECT t.* FROM Tarifler t " +
+                   "INNER JOIN TarifMalzemeIliskisi tm ON t.TarifID = tm.TarifID " +
+                   "INNER JOIN malzeme m ON tm.MalzemeID = m.ID " +
+                   "WHERE m.ID = @malzemeId"; ;
+                using (SqlCommand command = new SqlCommand(Equery1, conn))
+                {
+                    command.Parameters.AddWithValue("@MalzemeAdi", MalzemeAdi);
                     try
                     {
                         MalzemeID = (int)command.ExecuteScalar();
-                    }catch(Exception ex)
+                    }
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("MalzemeId alınırken hata yaşandı (MalzemeAratarif)",ex.ToString());   
+                        MessageBox.Show("MalzemeId alınırken hata yaşandı (MalzemeAratarif)", ex.ToString());
                     }
                 }
-                using (SqlCommand command = new SqlCommand())
-                { 
-                                  
+                using (SqlCommand command = new SqlCommand(Equery2, conn))
+                {
+                    command.Parameters.AddWithValue("@MalzemeID", MalzemeID);
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            Tarif tarif = new Tarif(reader.GetInt32(0), reader.GetString(1), reader.GetString(3), reader.GetInt32(2), reader.GetString(4));
+                            tarifler.Add(tarif);
+                        }
+
+                    }
+                    catch (Exception ex) { MessageBox.Show("Malzemeden Tarif alırken bir hata yaşandı (MalzemeTarifAra)"+ ex.ToString()); }
+
+
                 }
-
-
             }
 
             return tarifler;
