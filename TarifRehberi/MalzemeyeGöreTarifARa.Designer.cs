@@ -138,6 +138,7 @@
             this.Controls.Add(this.aramayıBitirButonu);
             this.Name = "MalzemeyeGöreTarifARa";
             this.Text = "Malzemeye Göre Tarif Ara";
+            this.Load += new System.EventHandler(this.MalzemeyeGöreTarifARa_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

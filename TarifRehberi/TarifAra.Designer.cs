@@ -70,7 +70,7 @@
             // 
             this.aramayıBitirButonu.Location = new System.Drawing.Point(695, 306);
             this.aramayıBitirButonu.Name = "aramayıBitirButonu";
-            this.aramayıBitirButonu.Size = new System.Drawing.Size(68, 65);
+            this.aramayıBitirButonu.Size = new System.Drawing.Size(75, 65);
             this.aramayıBitirButonu.TabIndex = 4;
             this.aramayıBitirButonu.Text = "Aramayı bitir";
             this.aramayıBitirButonu.UseVisualStyleBackColor = true;
@@ -80,7 +80,7 @@
             // 
             this.filtreEkleButonu.Location = new System.Drawing.Point(696, 111);
             this.filtreEkleButonu.Name = "filtreEkleButonu";
-            this.filtreEkleButonu.Size = new System.Drawing.Size(67, 65);
+            this.filtreEkleButonu.Size = new System.Drawing.Size(74, 65);
             this.filtreEkleButonu.TabIndex = 5;
             this.filtreEkleButonu.Text = "Filtre ekle";
             this.filtreEkleButonu.UseVisualStyleBackColor = true;

@@ -84,7 +84,8 @@ namespace TarifRehberi
         }
         private void TarifGüncelleForm_Load(object sender, EventArgs e)
         {
-            
+            BackgroundImage = Image.FromFile("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources/resim3.jpg");
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
         private void talimatlarBox_TextChanged(object sender, EventArgs e)
         {

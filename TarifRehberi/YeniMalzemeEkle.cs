@@ -65,7 +65,8 @@ namespace TarifRehberi
 
         private void YeniMalzemeEkle_Load(object sender, EventArgs e)
         {
-
+            BackgroundImage = Image.FromFile("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources/resim4.jpg");
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
     }
 }

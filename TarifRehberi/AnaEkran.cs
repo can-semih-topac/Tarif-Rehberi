@@ -79,7 +79,13 @@ namespace TarifRehberi
 
         private void AnaEkran_Load(object sender, EventArgs e)
         {
-
+            
+            BackgroundImage = Image.FromFile("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources/yemekresmianaekran.jpg");
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+            void  InitializeIcon()
+            {
+                this.Icon = new Icon("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources\\indir.jpg"); // ikon ekleme olmadı
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -91,8 +97,9 @@ namespace TarifRehberi
 
         private void label1_Click_1(object sender, EventArgs e)
         {
-
+            
         }
+        
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {

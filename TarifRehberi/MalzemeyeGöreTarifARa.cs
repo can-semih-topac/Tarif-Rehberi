@@ -40,5 +40,11 @@ namespace TarifRehberi
             FiltreEkle filtreekleform = new FiltreEkle();
             filtreekleform.Show();
         }
+
+        private void MalzemeyeGöreTarifARa_Load(object sender, EventArgs e)
+        {
+            BackgroundImage = Image.FromFile("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources/resim6.jpg");
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+        }
     }
 }
