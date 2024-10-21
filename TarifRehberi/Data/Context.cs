@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,15 @@ namespace TarifRehberi
             {
                 MessageBox.Show("Veritabanı bağlantı hatası: " + ex.Message);
             }
-            conn = new SqlConnection(connectionString);
+            try
+            {
+                conn = new SqlConnection(connectionString);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("hata var (Context)", ex.Message);
+            
+            }
         }
         public List<Tarif>  TariflerAra(string TarifAdi) {
             List<Tarif> tarifler = new List<Tarif>();
@@ -342,30 +351,32 @@ namespace TarifRehberi
                 return birim;
             }
         }
-        public SqlDataReader LoadTarifler()
+        public SqlDataReader LoadeTarifler()
         {
             string query = "SELECT TarifAdi FROM Tarifler";
             SqlDataReader reader = null;
 
             using (conn)
             {
-                SqlCommand command = new SqlCommand(query, conn);
-
-                try
+                conn.Open();
+                using (SqlCommand command = new SqlCommand(query, conn))
                 {
-                    conn.Open();
-                    reader = command.ExecuteReader();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Veritabanı bağlantı hatası: " + ex.Message);
-                }
-
-                if (reader != null)
-                {
-                    while (reader.Read())
+                    try
                     {
-                        MessageBox.Show("veriler " + reader["KategoriAdi"]);
+
+                        reader = command.ExecuteReader();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Veritabanı bağlantı hatası: " + ex.Message);
+                    }
+
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            MessageBox.Show("veriler " + reader["KategoriAdi"]);
+                        }
                     }
                 }
 
@@ -378,35 +389,34 @@ namespace TarifRehberi
         {
             List<Tarif> tarifler = new List<Tarif>();
 
-            
             string query = "SELECT * FROM Tarifler";
 
             using (conn)
             {
               conn.Open();
-                using (SqlCommand command = new SqlCommand(query, conn)) {  
-                    
-
-                try
-                {
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                using (SqlCommand command = new SqlCommand(query,conn))
+                {  
+                    try
                     {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                            {
                         int id=reader.GetInt32(0);
                         string tarifAdi = reader.GetString(1);
-                        string kategoriAdi = reader.GetString(3);
-                        int hazirlamaSuresi = reader.GetInt32(2);
+                        string kategoriAdi = reader.GetString(2);
+                        int hazirlamaSuresi = reader.GetInt32(3);
                         string talimatlar = reader.GetString(4);
                         tarifler.Add(new Tarif(id,tarifAdi, kategoriAdi, hazirlamaSuresi,talimatlar));
+                            }
+                        Console.WriteLine("Tarif başarıyla gösterildi.");
                     }
-                    Console.WriteLine("Tarif başarıyla gösterildi.");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                    catch (Exception ex)
+                    {
+                    MessageBox.Show("Bir hata oluştu:(Tum Tarifleri Getir) " + ex.Message);
                     Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                    }
                 }
-                }
+                conn.Close();
 
             }
 
@@ -636,37 +646,40 @@ namespace TarifRehberi
         public Tarif TumTarifiGetir(string tarifAdi)
         {
             Tarif tarif = null;
-            conn.Close();
-            conn.Open();
+            
             string query = "SELECT * FROM Tarifler WHERE TarifAdi = @TarifAdi";
-
-            using (SqlCommand command = new SqlCommand(query, conn))
+            using (conn) 
             {
-                command.Parameters.AddWithValue("@TarifAdi", tarifAdi);
-
-                try
+                conn.Open();
+                using (SqlCommand command = new SqlCommand(query, conn))
                 {
-                    SqlDataReader reader = command.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        int tarifID = reader.GetInt32(0);
-                        string kategori = reader.GetString(2);
-                        int hazirlamaSuresi = reader.GetInt32(3);
-                        string talimatlar = reader.GetString(4);
+                    command.Parameters.AddWithValue("@TarifAdi", tarifAdi);
 
-                        tarif = new Tarif(tarifID, tarifAdi, kategori, hazirlamaSuresi, talimatlar);
-                    }
-                    else
+                    try
                     {
-                        Console.WriteLine("Tarif bulunamadı.");
+                        SqlDataReader reader = command.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            int tarifID = reader.GetInt32(0);
+                            string kategori = reader.GetString(2);
+                            int hazirlamaSuresi = reader.GetInt32(3);
+                            string talimatlar = reader.GetString(4);
+
+                            tarif = new Tarif(tarifID, tarifAdi, kategori, hazirlamaSuresi, talimatlar);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Tarif bulunamadı.");
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Bir hata oluştu: " + ex.Message);
-                    Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Bir hata oluştu: (TumTarifiGetir) " + ex.Message);
+                        Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                    }
                 }
             }
+            
 
             return tarif;
         }
@@ -697,7 +710,7 @@ namespace TarifRehberi
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                        MessageBox.Show("Bir hata oluştu: (GetEskiMalzemeler) " + ex.Message);
                         Console.WriteLine("Bir hata oluştu: " + ex.Message);
                     }
                 }
@@ -705,32 +718,64 @@ namespace TarifRehberi
 
             return malzemeler;
         }
+        public Dictionary<int, decimal> MaliyetleriGetir()
+        {
+            Dictionary<int, decimal> Maliyetler = new Dictionary<int, decimal>();
+            using(conn) 
+            { 
+                conn.Open();
+                string Equery1 = "SELECT * FROM Maliyet";
+                using(SqlCommand command = new SqlCommand(Equery1, conn))
+                {
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            Maliyetler.Add(reader.GetInt32(0), reader.GetDecimal(1));
+                            
+                        }
+                    }catch (Exception ex) { MessageBox.Show("hata var (MaliyetleriGetir)" + ex.Message); }
+
+                }
+
+            }
+
+
+
+            return Maliyetler;
+        }
         public decimal MaliyetGetir(int tarifID)
         {
             decimal maliyet = 0;
-            string query = "SELECT Maliyet FROM Maliyetler WHERE TarifID = @TarifID";
-
-            using (SqlCommand command = new SqlCommand(query, conn))
+            
+            using (conn) 
             {
-                command.Parameters.AddWithValue("@TarifID", tarifID);
-
-                try
+                conn.Open();
+                string query = "SELECT Maliyet FROM Maliyetler WHERE TarifID = @TarifID";
+                using (SqlCommand command = new SqlCommand(query,conn))
                 {
-                    conn.Open();
-                    object result = command.ExecuteScalar();
-                    if (result != null)
+                    MessageBox.Show("Çalıştı");
+                    try
                     {
-                        maliyet = Convert.ToDecimal(result);
+                        command.Parameters.AddWithValue("@TarifID", tarifID);
+                        decimal result = (decimal)command.ExecuteScalar();
+                        if (result != null)
+                        {
+                            maliyet = result;
+                        }
+                        
                     }
-                    conn.Close();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Bir hata oluştu: (MaliyetiGetir)" + ex.Message);
+                        Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                        conn.Close();
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Bir hata oluştu: " + ex.Message);
-                    Console.WriteLine("Bir hata oluştu: " + ex.Message);
-                    conn.Close();
-                }
+                conn.Close();
             }
+           
 
             return maliyet;
         }

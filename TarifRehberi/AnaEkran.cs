@@ -17,6 +17,7 @@ namespace TarifRehberi
     {
 
         private List<Tarif> tarifler;
+        Dictionary<int, decimal> Maliyetler;
 
         public AnaEkran()
         {
@@ -24,21 +25,25 @@ namespace TarifRehberi
             LoadTarifler();
         }
 
+
         private void LoadTarifler()
         {
             // Ensure columns are added
+            Context context = new Context();
+            Context context2= new Context();
+            tarifler = context.TumTarifleriGetir();
             dataGridView1.Columns.Add("Column0", "TarifID");
             dataGridView1.Columns.Add("Column1", "Tarif Adı");
             dataGridView1.Columns.Add("Column2", "Hazırlanma süresi (dk)");
             dataGridView1.Columns.Add("Column3", "Kategori");
             dataGridView1.Columns.Add("Column4", "Maliyet");
-
-            Context context = new Context();
-            tarifler = context.TumTarifleriGetir();
-            foreach (var tarif in tarifler)
+            
+            
+            Maliyetler =context2.MaliyetleriGetir();
+            foreach (Tarif tarif in tarifler)
             {
-                decimal maliyet = context.MaliyetGetir(tarif.TarifID);
-                dataGridView1.Rows.Add(tarif.TarifID, tarif.TarifAdi, tarif.HazirlamaSuresi, tarif.Kategori, maliyet);
+                
+                dataGridView1.Rows.Add(tarif.TarifID, tarif.TarifAdi, tarif.HazirlamaSuresi, tarif.Kategori, Maliyetler[tarif.TarifID]);
             }
 
             dataGridView1.Font = new Font(dataGridView1.Font.FontFamily, 10);
@@ -80,11 +85,11 @@ namespace TarifRehberi
         private void AnaEkran_Load(object sender, EventArgs e)
         {
             
-            BackgroundImage = Image.FromFile("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources/yemekresmianaekran.jpg");
-            this.BackgroundImageLayout = ImageLayout.Stretch;
+            //BackgroundImage = Image.FromFile("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources/yemekresmianaekran.jpg");
+            //this.BackgroundImageLayout = ImageLayout.Stretch;
             void  InitializeIcon()
             {
-                this.Icon = new Icon("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources\\indir.jpg"); // ikon ekleme olmadı
+                //this.Icon = new Icon("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources\\indir.jpg"); // ikon ekleme olmadı
             }
         }
 
@@ -115,8 +120,7 @@ namespace TarifRehberi
             else
             {
                 var selectedTarif = tarifler[e.RowIndex];
-                //TarifGüncelleForm tarifGuncelleForm = new TarifGüncelleForm(new List<(string, string, int)> { selectedTarif });
-                //tarifGuncelleForm.Show();
+                
             }
         }
 
@@ -124,21 +128,15 @@ namespace TarifRehberi
         {
             if (dataGridView1.CurrentRow != null)
             {
-                // Seçili satırdaki verileri alalım
+                
                 int selectedIndex = dataGridView1.CurrentRow.Index;
 
 
                 int TarifID = Convert.ToInt32(dataGridView1.Rows[selectedIndex].Cells[0].Value);
                 
-                // Diğer sütunlardan veri alabilirsiniz
-               
-
-                // Yeni formu oluşturup veriyi gönder
-               // Form2 yeniForm = new Form2(isciId, isciAdi, pozisyon);
-                //yeniForm.Show(); // Yeni formu göster
                 TarifGüncelleForm tarifGüncelleForm = new TarifGüncelleForm(TarifID);
                 tarifGüncelleForm.Show();
-                // MessageBox.Show(TarifID+"");
+                
 
             }
             else
