@@ -37,7 +37,8 @@ namespace TarifRehberi
             tarifler = context.TumTarifleriGetir();
             foreach (var tarif in tarifler)
             {
-                dataGridView1.Rows.Add(tarif.TarifID, tarif.TarifAdi, tarif.HazirlamaSuresi, tarif.Kategori, 1);
+                decimal maliyet = context.MaliyetGetir(tarif.TarifID);
+                dataGridView1.Rows.Add(tarif.TarifID, tarif.TarifAdi, tarif.HazirlamaSuresi, tarif.Kategori, maliyet);
             }
 
             dataGridView1.Font = new Font(dataGridView1.Font.FontFamily, 10);

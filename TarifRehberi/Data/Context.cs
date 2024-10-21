@@ -110,7 +110,6 @@ namespace TarifRehberi
             return tarifler;
 
         }
-
         public void YeniMalzemeEkle(string malzemeAdi, string malzemeBirimi, decimal birimFiyat, decimal toplamMiktar)
         {
             conn.Close();
@@ -166,8 +165,7 @@ namespace TarifRehberi
                     conn.Close();
                 }
             }
-        }
-        
+        }     
         SqlDataReader Sorgu(string select, string from, string where)
         {
             object[] sonuc = null;
@@ -331,8 +329,7 @@ namespace TarifRehberi
             }
 
             return malzemeler;
-        }
-        
+        }     
         public string MalzemeBirimGetir(string malzeme)
         {
             string query = "SELECT MalzemeBirim FROM Malzemeler WHERE MalzemeAdi = @malzeme";
@@ -345,7 +342,6 @@ namespace TarifRehberi
                 return birim;
             }
         }
-        
         public SqlDataReader LoadTarifler()
         {
             string query = "SELECT TarifAdi FROM Tarifler";
@@ -613,9 +609,6 @@ namespace TarifRehberi
                 conn.Close();
             }
         } // kullanmıyoruz
-
-
-
         public Tarif TarifBilgileriGetir(int tarifID)
         {
             string query = "SELECT TarifAdi, KategoriAdi, HazirlamaSuresi, Talimatlar FROM Tarifler WHERE TarifID = @TarifID";
@@ -677,8 +670,6 @@ namespace TarifRehberi
 
             return tarif;
         }
-
-        
         public List<Malzeme> GetEskiMalzemeler(int tarifID)
         {
             List<Malzeme> malzemeler = new List<Malzeme>();
@@ -714,8 +705,36 @@ namespace TarifRehberi
 
             return malzemeler;
         }
-        
-        
+        public decimal MaliyetGetir(int tarifID)
+        {
+            decimal maliyet = 0;
+            string query = "SELECT Maliyet FROM Maliyetler WHERE TarifID = @TarifID";
+
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                command.Parameters.AddWithValue("@TarifID", tarifID);
+
+                try
+                {
+                    conn.Open();
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        maliyet = Convert.ToDecimal(result);
+                    }
+                    conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                    Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                    conn.Close();
+                }
+            }
+
+            return maliyet;
+        }
+
 
     }
 }

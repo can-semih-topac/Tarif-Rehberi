@@ -23,13 +23,7 @@ namespace TarifRehberi
             Context context = new Context();
             List<Tarif> tarifler = context.TumTarifleriGetir();
 
-            /*foreach (var tarif in tarifler)
-            {
-                tariflerListBox.Items.Add(string.Format("{0,-10} {1,5}dk      {2,-10} ", tarif.Item1, tarif.Item3, tarif.Item2));
-                tariflerListBox.Items.Add(""); // Add an empty item for spacing
-            }
-
-            tariflerListBox.Font = new Font(tariflerListBox.Font.FontFamily, 10);*/
+            
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -45,9 +39,7 @@ namespace TarifRehberi
 
         private void aramayıBitirButonu_Click(object sender, EventArgs e)
         {
-            // Save changes and close the form
-            // TODO: Add code to save changes
-
+            
             this.Close();
         }
 
@@ -70,6 +62,20 @@ namespace TarifRehberi
         private void tariflerListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void adaGoreTarifAraButonu_Click(object sender, EventArgs e)
+        {
+            string arananTarifAdi = tarifAdi.Text;
+
+            Context context = new Context();
+            List<Tarif> tarifler = context.TariflerAra(arananTarifAdi);
+            dataGridView1.DataSource = tarifler; 
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
         }
     }
 }
