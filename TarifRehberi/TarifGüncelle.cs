@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TarifRehberi.Models;
 
 namespace TarifRehberi
 {
@@ -15,17 +16,30 @@ namespace TarifRehberi
     {
 
         private List<string> malzemeler;
+
         private List<decimal> secilenMalzemeMiktarlari;
-        public TarifGüncelleForm(List<(string, string, int)> selectedTarif)
+        private List<Tarif> tarifler;
+        public TarifGüncelleForm(int tarifID)
         {
-            string secilenTarifAdi = selectedTarif[0].Item1;
-            malzemeler = new List<string>();
+            Context context = new Context();
+            malzemeler = context.GetEskiMalzemeler(tarifID).Select(m => m.MalzemeAdi).ToList();
+            secilenMalzemeMiktarlari = context.GetEskiMalzemeler(tarifID).Select(m => m.ToplamMiktar).ToList();
+            MessageBox.Show(string.Join(Environment.NewLine, malzemeler));
+            for (int i = 0; i < malzemeler.Count; i++)
+            {
+                if (i < secilenMalzemeMiktarlari.Count)
+                {
+                    string birim = context.MalzemeBirimGetir(malzemeler[i]);
+                    string malzeme = malzemeler[i] + " - " + secilenMalzemeMiktarlari[i] + " " + birim;
+                    listBox1.Items.Add(malzeme);
+                }
+            }
+
             secilenMalzemeMiktarlari = new List<decimal>();
             InitializeComponent();
             LoadKategoriler();
             LoadMalzemeler();
-            LoadTarifBilgileri(secilenTarifAdi);
-            // LoadTarifBilgileri();
+            LoadTarifBilgileri(tarifID);
         }
 
         private void LoadKategoriler()
@@ -42,16 +56,15 @@ namespace TarifRehberi
 
             malzemeEkleComboBox.Items.AddRange(malzemeler.ToArray());
         }
-        private void LoadTarifBilgileri(string secilenTarifAdi)
+        private void LoadTarifBilgileri(int tarifID)
         {
-            // MessageBox.Show("Load tarif bilgilerine girdi");
             Context context = new Context();
-            (string, string, int, string) tarifBilgileri = context.TarifBilgileriGetir(secilenTarifAdi);
+            Tarif tarifBilgileri = context.TarifBilgileriGetir(tarifID);
 
-            tarifAdiBox.Text = tarifBilgileri.Item1;
-            kategoriComboBox.SelectedItem = tarifBilgileri.Item2;
-            hazirlanmaSuresiBox.Text = tarifBilgileri.Item3.ToString();
-            talimatlarBox.Text = tarifBilgileri.Item4;
+            tarifAdiBox.Text = tarifBilgileri.TarifAdi;
+            kategoriComboBox.SelectedItem = tarifBilgileri.Kategori;
+            hazirlanmaSuresiBox.Text = tarifBilgileri.HazirlamaSuresi.ToString();
+            talimatlarBox.Text = tarifBilgileri.Talimatlar;
         }
         private void tarifAdiBox_TextChanged(object sender, EventArgs e)
         {
@@ -71,6 +84,26 @@ namespace TarifRehberi
         }
         private void TarifGüncelleForm_Load(object sender, EventArgs e)
         {
+            
+        }
+        private void talimatlarBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void hazirlanmaSuresiBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void malzemeMiktariBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
         private void yeniMalzemeEkleButonu_Click(object sender, EventArgs e)
@@ -82,11 +115,7 @@ namespace TarifRehberi
         {
             YeniKategoriEkle yeniKategoriEkleForm = new YeniKategoriEkle();
             yeniKategoriEkleForm.Show();
-        }
-        private void hazirlanmaSuresiBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        }      
         private void kategoriComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -108,12 +137,9 @@ namespace TarifRehberi
             if (!string.IsNullOrEmpty(birim))
             {
                 listBox2.Items.Clear();
+
                 listBox2.Items.Add(birim);
             }
-
-        }
-        private void talimatlarBox_TextChanged(object sender, EventArgs e)
-        {
 
         }
         private void malzemeEkleButonu_Click(object sender, EventArgs e)
@@ -128,24 +154,20 @@ namespace TarifRehberi
             string birim = context.MalzemeBirimGetir(secilenMalzeme);
             malzemeEkleComboBox.SelectedItem = null;
             malzemeMiktariBox.Text = string.Empty;
-            listBox1.Items.Clear(); // ListBox'ı temizle
+            listBox1.Items.Clear();
             listBox2.Items.Clear();
             for (int i = 0; i < malzemeler.Count; i++)
             {
-                string malzeme = malzemeler[i] + " - " + secilenMalzemeMiktarlari[i] + " " + birim;
-                listBox1.Items.Add(malzeme); // Malzemeler listesindeki her bir malzemeyi ListBox'a ekle
+                if (i < secilenMalzemeMiktarlari.Count)
+                {
+                    string malzeme = malzemeler[i] + " - " + secilenMalzemeMiktarlari[i] + " " + birim;
+                    listBox1.Items.Add(malzeme);
+                }
             }
-
-        }
-        private void malzemeMiktariBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        }       
         private void tarifitamamlabutonu_Click(object sender, EventArgs e)
         {
-            // Save changes and close the form
-            // TODO: Add code to save changes
-
+            
             string tarifAdi = tarifAdiBox.Text;
             int hazirlanmaSuresi;
             int.TryParse(hazirlanmaSuresiBox.Text, out hazirlanmaSuresi);
@@ -159,12 +181,6 @@ namespace TarifRehberi
             Context context1 = new Context();
             context1.EkleTarifMalzemeIliskisi(tarifAdi, malzemeler, secilenMalzemeMiktarlari);
             this.Close();
-        }
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
+        }      
     }
 }

@@ -35,10 +35,9 @@ namespace TarifRehberi
 
             Context context = new Context();
             tarifler = context.TumTarifleriGetir();
-            MessageBox.Show(tarifler.Count.ToString());
             foreach (var tarif in tarifler)
             {
-                dataGridView1.Rows.Add( tarif.TarifID,tarif.TarifAdi, tarif.HazirlamaSuresi, tarif.Kategori, 1);
+                dataGridView1.Rows.Add(tarif.TarifID, tarif.TarifAdi, tarif.HazirlamaSuresi, tarif.Kategori, 1);
             }
 
             dataGridView1.Font = new Font(dataGridView1.Font.FontFamily, 10);
@@ -120,17 +119,19 @@ namespace TarifRehberi
                 // Seçili satırdaki verileri alalım
                 int selectedIndex = dataGridView1.CurrentRow.Index;
 
-                // Örneğin: ilk sütunda işçi ID'si var
-                int TarifID = Convert.ToInt32(dataGridView1.Rows[selectedIndex].Cells[0].Value);
 
+                int TarifID = Convert.ToInt32(dataGridView1.Rows[selectedIndex].Cells[0].Value);
+                
                 // Diğer sütunlardan veri alabilirsiniz
                
 
                 // Yeni formu oluşturup veriyi gönder
                // Form2 yeniForm = new Form2(isciId, isciAdi, pozisyon);
                 //yeniForm.Show(); // Yeni formu göster
-                //TarifGüncelleForm tarifGüncelleForm = new TarifGüncelleForm(TarifID);
-                MessageBox.Show(TarifID+"");
+                TarifGüncelleForm tarifGüncelleForm = new TarifGüncelleForm(TarifID);
+                tarifGüncelleForm.Show();
+                // MessageBox.Show(TarifID+"");
+
             }
             else
             {

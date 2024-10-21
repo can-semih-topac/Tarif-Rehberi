@@ -41,7 +41,7 @@ namespace TarifRehberi
             // 
             // tarifeklebutonu
             // 
-            this.tarifeklebutonu.Location = new System.Drawing.Point(31, 200);
+            this.tarifeklebutonu.Location = new System.Drawing.Point(31, 177);
             this.tarifeklebutonu.Margin = new System.Windows.Forms.Padding(4);
             this.tarifeklebutonu.Name = "tarifeklebutonu";
             this.tarifeklebutonu.Size = new System.Drawing.Size(174, 50);
@@ -52,7 +52,7 @@ namespace TarifRehberi
             // 
             // tarifAraButonu
             // 
-            this.tarifAraButonu.Location = new System.Drawing.Point(31, 267);
+            this.tarifAraButonu.Location = new System.Drawing.Point(31, 248);
             this.tarifAraButonu.Name = "tarifAraButonu";
             this.tarifAraButonu.Size = new System.Drawing.Size(174, 51);
             this.tarifAraButonu.TabIndex = 4;
@@ -62,7 +62,7 @@ namespace TarifRehberi
             // 
             // oneriAlButonu
             // 
-            this.oneriAlButonu.Location = new System.Drawing.Point(31, 338);
+            this.oneriAlButonu.Location = new System.Drawing.Point(31, 320);
             this.oneriAlButonu.Name = "oneriAlButonu";
             this.oneriAlButonu.Size = new System.Drawing.Size(174, 51);
             this.oneriAlButonu.TabIndex = 5;
@@ -94,11 +94,11 @@ namespace TarifRehberi
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(69, 439);
+            this.button1.Location = new System.Drawing.Point(31, 465);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(174, 59);
             this.button1.TabIndex = 13;
-            this.button1.Text = "button1";
+            this.button1.Text = "Seçilen tarifin detaylarını göster";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 

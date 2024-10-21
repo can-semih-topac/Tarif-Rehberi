@@ -441,6 +441,17 @@ namespace TarifRehberi
                     }
                     catch (Exception ex)
                     {
+                        object result = command.ExecuteScalar();
+                        if (result != null)
+                        {
+                            tarifID = (int)result;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Tarif bulunamadı: " + tarifAdi);
+                            Console.WriteLine("Tarif bulunamadı: " + tarifAdi);
+                            return;
+                        }
                         MessageBox.Show("Bir hata oluştu:1 " + ex.Message);
                         Console.WriteLine("Bir hata oluştu: " + ex.Message);
                     }
@@ -539,7 +550,7 @@ namespace TarifRehberi
             }
 
         }
-        public void YeniTarifEkle(string tarifAdi, string kategoriAdi, int hazirlamaSuresi, string talimatlar)
+        public void YeniTarifEkle(string tarifAdi, string kategori, int hazirlamaSuresi, string talimatlar)
         {
             if (conn == null)
             {
@@ -547,17 +558,15 @@ namespace TarifRehberi
                 return;
             }
 
-            
-
             using (conn)
             {
                 conn.Open();
-                string query0 = "INSERT INTO Tarifler (TarifAdi, KategoriAdi, HazirlamaSuresi, Talimatlar) VALUES (@TarifAdi, @KategoriAdi, @HazirlamaSuresi, @Talimatlar)";
+                string query0 = "INSERT INTO Tarifler (TarifAdi, Kategori, HazirlamaSuresi, Talimatlar) VALUES (@TarifAdi, @Kategori, @HazirlamaSuresi, @Talimatlar)";
 
                 using (SqlCommand command = new SqlCommand(query0, conn))
                 {
                     command.Parameters.AddWithValue("@TarifAdi", tarifAdi);
-                    command.Parameters.AddWithValue("@KategoriAdi", kategoriAdi);
+                    command.Parameters.AddWithValue("@Kategori", kategori);
                     command.Parameters.AddWithValue("@HazirlamaSuresi", hazirlamaSuresi);
                     command.Parameters.AddWithValue("@Talimatlar", talimatlar);
 
@@ -568,7 +577,7 @@ namespace TarifRehberi
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                        MessageBox.Show("Bir hata oluştu: (yeni tarif eklerken) " + ex.Message);
                     }
                 }
 
@@ -607,36 +616,27 @@ namespace TarifRehberi
 
 
 
-        public (string, string, int, string) TarifBilgileriGetir(string TarifAdi)
+        public Tarif TarifBilgileriGetir(int tarifID)
         {
-            // MessageBox.Show("Tarif bilgileri getir fonksiyonuna girdi");
-            string query = "SELECT KategoriAdi, HazirlamaSuresi, Talimatlar FROM Tarifler WHERE TarifAdi = @TarifAdi";
+            string query = "SELECT TarifAdi, KategoriAdi, HazirlamaSuresi, Talimatlar FROM Tarifler WHERE TarifID = @TarifID";
             using (SqlCommand command = new SqlCommand(query, conn))
             {
-                command.Parameters.AddWithValue("@TarifAdi", TarifAdi);
+                command.Parameters.AddWithValue("@TarifID", tarifID);
                 conn.Close();
                 conn.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
-                    // MessageBox.Show("Tarif bilgileri getir fonksiyonunda okuma yapıldı");
-
+                    string tarifAdi = reader.GetString(reader.GetOrdinal("TarifAdi"));
                     string kategoriAdi = reader.GetString(reader.GetOrdinal("KategoriAdi"));
                     int hazirlamaSuresi = reader.GetInt32(reader.GetOrdinal("HazirlamaSuresi"));
                     string talimatlar = reader.GetString(reader.GetOrdinal("Talimatlar"));
 
-                    /*
-                    MessageBox.Show("Kategori Adı: " + kategoriAdi);
-                    MessageBox.Show("Hazırlama Süresi: " + hazirlamaSuresi);
-                    MessageBox.Show("Talimatlar: " + talimatlar);
-                    MessageBox.Show("Tarif Adı: " + TarifAdi);
-                    */
-                    return (TarifAdi, kategoriAdi, hazirlamaSuresi, talimatlar);
+                    return new Tarif(tarifID, tarifAdi, kategoriAdi, hazirlamaSuresi, talimatlar);
                 }
                 else
                 {
-                    MessageBox.Show("Tarif bulunamadı.");
-                    return (null, null, 0, null);
+                    return null;
                 }
             }
         }
@@ -677,6 +677,45 @@ namespace TarifRehberi
 
             return tarif;
         }
+
+        
+        public List<Malzeme> GetEskiMalzemeler(int tarifID)
+        {
+            List<Malzeme> malzemeler = new List<Malzeme>();
+
+            using (conn)
+            {
+                conn.Open();
+                string query = "SELECT m.MalzemeAdi, tm.MalzemeMiktar FROM Malzemeler m " +
+                               "INNER JOIN TarifMalzemeIliskisi tm ON m.MalzemeID = tm.MalzemeID " +
+                               "WHERE tm.TarifID = @TarifID";
+
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@TarifID", tarifID);
+
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            string malzemeAdi = reader.GetString(0);
+                            decimal malzemeMiktar = reader.GetDecimal(1);
+                            malzemeler.Add(new Malzeme(0, malzemeAdi, malzemeMiktar, "", 0));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                        Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                    }
+                }
+            }
+
+            return malzemeler;
+        }
+        
+        
 
     }
 }
