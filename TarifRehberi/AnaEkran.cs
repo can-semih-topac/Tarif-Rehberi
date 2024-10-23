@@ -61,12 +61,7 @@ namespace TarifRehberi
             */
         }
 
-        private bool TarifeMalzemeyetiyormuKontrol(int tarifID)
-        {
-            // Implement the logic to check if the ingredients are sufficient for the given recipe ID
-            // Return true if sufficient, false otherwise
-            return true; // Placeholder return value
-        }
+        
 
         
 

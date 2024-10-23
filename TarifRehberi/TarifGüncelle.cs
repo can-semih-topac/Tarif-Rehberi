@@ -160,7 +160,7 @@ namespace TarifRehberi
             decimal malzemeMiktari;
             
 
-            // malzemeler.Add(secilenMalzeme);
+             //malzemeler.Add(secilenMalzeme);
             //secilenMalzemeMiktarlari.Add(malzemeMiktari);
             Context context = new Context();
             string birim = context.MalzemeBirimGetir(secilenMalzeme);
