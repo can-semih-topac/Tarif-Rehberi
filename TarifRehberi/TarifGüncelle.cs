@@ -196,5 +196,10 @@ namespace TarifRehberi
         {
 
         }
+
+        private void tarifSilbutton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

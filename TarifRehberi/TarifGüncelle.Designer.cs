@@ -48,6 +48,7 @@
             this.malzemeEkleButonu = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.eklenenmazemelergridwiew = new System.Windows.Forms.DataGridView();
+            this.tarifSilbutton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.eklenenmazemelergridwiew)).BeginInit();
             this.SuspendLayout();
             // 
@@ -163,9 +164,9 @@
             // 
             // tarifiGüncelleButonu
             // 
-            this.tarifiGüncelleButonu.Location = new System.Drawing.Point(812, 477);
+            this.tarifiGüncelleButonu.Location = new System.Drawing.Point(845, 477);
             this.tarifiGüncelleButonu.Name = "tarifiGüncelleButonu";
-            this.tarifiGüncelleButonu.Size = new System.Drawing.Size(211, 46);
+            this.tarifiGüncelleButonu.Size = new System.Drawing.Size(178, 46);
             this.tarifiGüncelleButonu.TabIndex = 13;
             this.tarifiGüncelleButonu.Text = "Tarifi Güncelle";
             this.tarifiGüncelleButonu.UseVisualStyleBackColor = true;
@@ -248,11 +249,22 @@
             this.eklenenmazemelergridwiew.TabIndex = 21;
             this.eklenenmazemelergridwiew.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.eklenenmazemelergridwiew_CellContentClick);
             // 
+            // tarifSilbutton
+            // 
+            this.tarifSilbutton.Location = new System.Drawing.Point(611, 477);
+            this.tarifSilbutton.Name = "tarifSilbutton";
+            this.tarifSilbutton.Size = new System.Drawing.Size(171, 46);
+            this.tarifSilbutton.TabIndex = 22;
+            this.tarifSilbutton.Text = "Tarif Sil";
+            this.tarifSilbutton.UseVisualStyleBackColor = true;
+            this.tarifSilbutton.Click += new System.EventHandler(this.tarifSilbutton_Click);
+            // 
             // TarifGüncelleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 608);
+            this.Controls.Add(this.tarifSilbutton);
             this.Controls.Add(this.eklenenmazemelergridwiew);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.malzemeEkleButonu);
@@ -305,5 +317,6 @@
         private System.Windows.Forms.Button malzemeEkleButonu;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.DataGridView eklenenmazemelergridwiew;
+        private System.Windows.Forms.Button tarifSilbutton;
     }
 }
