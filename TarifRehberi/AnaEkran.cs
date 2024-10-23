@@ -38,12 +38,20 @@ namespace TarifRehberi
             dataGridView1.Columns.Add("Column3", "Kategori");
             dataGridView1.Columns.Add("Column4", "Maliyet");
 
-
             Maliyetler = context2.MaliyetleriGetir();
             foreach (Tarif tarif in tarifler)
             {
-
-                dataGridView1.Rows.Add(tarif.TarifID, tarif.TarifAdi, tarif.HazirlamaSuresi, tarif.Kategori, Maliyetler[tarif.TarifID]);
+                int rowIndex = dataGridView1.Rows.Add(tarif.TarifID, tarif.TarifAdi, tarif.HazirlamaSuresi, tarif.Kategori, Maliyetler[tarif.TarifID]);
+                DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                Context context1 = new Context();
+                if (context1.TarifeMalzemeYetiyormuKontrol(tarif.TarifID))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Green;
+                }
+                else
+                {
+                    row.DefaultCellStyle.BackColor = Color.Red;
+                }
             }
 
             /*
@@ -51,6 +59,13 @@ namespace TarifRehberi
             dataGridView1.DefaultCellStyle.BackColor = Color.Black;
             dataGridView1.DefaultCellStyle.ForeColor = Color.White;
             */
+        }
+
+        private bool TarifeMalzemeyetiyormuKontrol(int tarifID)
+        {
+            // Implement the logic to check if the ingredients are sufficient for the given recipe ID
+            // Return true if sufficient, false otherwise
+            return true; // Placeholder return value
         }
 
         

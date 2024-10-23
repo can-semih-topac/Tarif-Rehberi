@@ -815,7 +815,51 @@ namespace TarifRehberi
 
             return maliyet;
         }
+        public bool TarifeMalzemeYetiyormuKontrol(int tarifID)
+        {
+            bool yeterliMalzeme = true;
 
+            string query = "SELECT tm.MalzemeID, tm.MalzemeMiktar, m.ToplamMiktar " +
+                           "FROM TarifMalzemeIliskisi tm " +
+                           "INNER JOIN Malzemeler m ON tm.MalzemeID = m.MalzemeID " +
+                           "WHERE tm.TarifID = @TarifID";
+
+            using (conn)
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@TarifID", tarifID);
+
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            decimal malzemeMiktar = reader.GetDecimal(reader.GetOrdinal("MalzemeMiktar"));
+                            decimal toplamMiktar = reader.GetDecimal(reader.GetOrdinal("ToplamMiktar"));
+
+                            if (toplamMiktar < malzemeMiktar)
+                            {
+                                yeterliMalzeme = false;
+                                break;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Bir hata oluştu: (TarifMalzemeKontrol) " + ex.Message);
+                        Console.WriteLine("Bir hata oluştu: " + ex.Message);
+                        yeterliMalzeme = false;
+                    }
+                }
+                conn.Close();
+            }
+
+            return yeterliMalzeme;
+        }
+
+        
 
     }
 }
