@@ -85,37 +85,46 @@ namespace TarifRehberi
 
                 string Equery2 = "SELECT t.* FROM Tarifler t " +
                    "INNER JOIN TarifMalzemeIliskisi tm ON t.TarifID = tm.TarifID " +
-                   "INNER JOIN malzeme m ON tm.MalzemeID = m.ID " +
-                   "WHERE m.ID = @malzemeId"; ;
+                   "INNER JOIN Malzemeler m ON tm.MalzemeID = m.MalzemeID " +
+                   "WHERE m.MalzemeID = @MalzemeId"; ;
                 using (SqlCommand command = new SqlCommand(Equery1, conn))
                 {
                     command.Parameters.AddWithValue("@MalzemeAdi", MalzemeAdi);
                     try
                     {
-                        MalzemeID = (int)command.ExecuteScalar();
+                        //MessageBox.Show("ilk try hatasız");
+                        var Id= command.ExecuteScalar();
+                        if (Id != null)
+                            MalzemeID = (int)Id;
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("MalzemeId alınırken hata yaşandı (MalzemeAratarif)", ex.ToString());
+                        MessageBox.Show("MalzemeId alınırken hata yaşandı (MalzemeAratarif)", ex.Message);
                     }
                 }
-                using (SqlCommand command = new SqlCommand(Equery2, conn))
+                if (MalzemeID != -1)
                 {
-                    command.Parameters.AddWithValue("@MalzemeID", MalzemeID);
-                    try
+                    using (SqlCommand command = new SqlCommand(Equery2, conn))
                     {
-                        SqlDataReader reader = command.ExecuteReader();
-                        while (reader.Read())
+                        command.Parameters.AddWithValue("@MalzemeId", MalzemeID);
+                        try
                         {
-                            Tarif tarif = new Tarif(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4));
-                            tarifler.Add(tarif);
+
+                            SqlDataReader reader = command.ExecuteReader();
+                            //MessageBox.Show("ikinci try hatasız");
+                            while (reader.Read())
+                            {
+                                Tarif tarif = new Tarif(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4));
+                                tarifler.Add(tarif);
+                            }
+
                         }
+                        catch (Exception ex) { MessageBox.Show("Malzemeden Tarif alırken bir hata yaşandı (MalzemeTarifAra)" + ex.Message); }
+
 
                     }
-                    catch (Exception ex) { MessageBox.Show("Malzemeden Tarif alırken bir hata yaşandı (MalzemeTarifAra)" + ex.ToString()); }
-
-
                 }
+               
             }
 
             return tarifler;

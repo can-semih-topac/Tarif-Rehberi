@@ -71,7 +71,10 @@ namespace TarifRehberi
 
             Context context = new Context();
             List<Tarif> tarifler = context.TariflerAra(arananTarifAdi);
-            dataGridView1.DataSource = tarifler; 
+            dataGridView1.DataSource = tarifler;
+            Context context1 = new Context();
+            List<Tarif> tarifler1 = context1.MalzemeTarifAra(arananTarifAdi);
+            dataGridView1.DataSource = tarifler1;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
