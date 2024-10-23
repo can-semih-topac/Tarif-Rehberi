@@ -48,6 +48,7 @@
             this.malzemeEkleButonu = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.eklenenmazemelergridwiew = new System.Windows.Forms.DataGridView();
+            this.tarifSilbutton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.eklenenmazemelergridwiew)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,7 +114,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(481, 99);
+            this.label4.Location = new System.Drawing.Point(608, 84);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(280, 16);
@@ -123,17 +124,17 @@
             // 
             // talimatlarBox
             // 
-            this.talimatlarBox.Location = new System.Drawing.Point(484, 119);
+            this.talimatlarBox.Location = new System.Drawing.Point(611, 119);
             this.talimatlarBox.Margin = new System.Windows.Forms.Padding(4);
             this.talimatlarBox.Name = "talimatlarBox";
-            this.talimatlarBox.Size = new System.Drawing.Size(539, 357);
+            this.talimatlarBox.Size = new System.Drawing.Size(412, 337);
             this.talimatlarBox.TabIndex = 8;
             this.talimatlarBox.Text = "";
             this.talimatlarBox.TextChanged += new System.EventHandler(this.talimatlarBox_TextChanged);
             // 
             // yeniMalzemeEkleButonu
             // 
-            this.yeniMalzemeEkleButonu.Location = new System.Drawing.Point(923, 68);
+            this.yeniMalzemeEkleButonu.Location = new System.Drawing.Point(490, 122);
             this.yeniMalzemeEkleButonu.Margin = new System.Windows.Forms.Padding(4);
             this.yeniMalzemeEkleButonu.Name = "yeniMalzemeEkleButonu";
             this.yeniMalzemeEkleButonu.Size = new System.Drawing.Size(100, 43);
@@ -163,9 +164,9 @@
             // 
             // tarifiGüncelleButonu
             // 
-            this.tarifiGüncelleButonu.Location = new System.Drawing.Point(845, 485);
+            this.tarifiGüncelleButonu.Location = new System.Drawing.Point(845, 477);
             this.tarifiGüncelleButonu.Name = "tarifiGüncelleButonu";
-            this.tarifiGüncelleButonu.Size = new System.Drawing.Size(178, 38);
+            this.tarifiGüncelleButonu.Size = new System.Drawing.Size(178, 46);
             this.tarifiGüncelleButonu.TabIndex = 13;
             this.tarifiGüncelleButonu.Text = "Tarifi Güncelle";
             this.tarifiGüncelleButonu.UseVisualStyleBackColor = true;
@@ -173,10 +174,10 @@
             // 
             // yeniKategoriEkleButonu
             // 
-            this.yeniKategoriEkleButonu.Location = new System.Drawing.Point(812, 68);
+            this.yeniKategoriEkleButonu.Location = new System.Drawing.Point(490, 209);
             this.yeniKategoriEkleButonu.Margin = new System.Windows.Forms.Padding(4);
             this.yeniKategoriEkleButonu.Name = "yeniKategoriEkleButonu";
-            this.yeniKategoriEkleButonu.Size = new System.Drawing.Size(103, 43);
+            this.yeniKategoriEkleButonu.Size = new System.Drawing.Size(100, 43);
             this.yeniKategoriEkleButonu.TabIndex = 14;
             this.yeniKategoriEkleButonu.Text = "Yeni kategori ekle";
             this.yeniKategoriEkleButonu.UseVisualStyleBackColor = true;
@@ -244,15 +245,26 @@
             this.eklenenmazemelergridwiew.Name = "eklenenmazemelergridwiew";
             this.eklenenmazemelergridwiew.RowHeadersWidth = 51;
             this.eklenenmazemelergridwiew.RowTemplate.Height = 24;
-            this.eklenenmazemelergridwiew.Size = new System.Drawing.Size(367, 152);
+            this.eklenenmazemelergridwiew.Size = new System.Drawing.Size(534, 199);
             this.eklenenmazemelergridwiew.TabIndex = 21;
             this.eklenenmazemelergridwiew.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.eklenenmazemelergridwiew_CellContentClick);
+            // 
+            // tarifSilbutton
+            // 
+            this.tarifSilbutton.Location = new System.Drawing.Point(611, 477);
+            this.tarifSilbutton.Name = "tarifSilbutton";
+            this.tarifSilbutton.Size = new System.Drawing.Size(171, 46);
+            this.tarifSilbutton.TabIndex = 22;
+            this.tarifSilbutton.Text = "Tarif Sil";
+            this.tarifSilbutton.UseVisualStyleBackColor = true;
+            this.tarifSilbutton.Click += new System.EventHandler(this.tarifSilbutton_Click);
             // 
             // TarifGüncelleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(1136, 608);
+            this.Controls.Add(this.tarifSilbutton);
             this.Controls.Add(this.eklenenmazemelergridwiew);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.malzemeEkleButonu);
@@ -305,5 +317,6 @@
         private System.Windows.Forms.Button malzemeEkleButonu;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.DataGridView eklenenmazemelergridwiew;
+        private System.Windows.Forms.Button tarifSilbutton;
     }
 }
