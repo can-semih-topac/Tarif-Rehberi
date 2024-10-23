@@ -38,7 +38,6 @@
             this.talimatlarBox = new System.Windows.Forms.RichTextBox();
             this.yeniMalzemeEkleButonu = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tarifiGüncelleButonu = new System.Windows.Forms.Button();
             this.yeniKategoriEkleButonu = new System.Windows.Forms.Button();
@@ -48,6 +47,8 @@
             this.malzemeMiktariBox = new System.Windows.Forms.TextBox();
             this.malzemeEkleButonu = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.eklenenmazemelergridwiew = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.eklenenmazemelergridwiew)).BeginInit();
             this.SuspendLayout();
             // 
             // tarifAdiBox
@@ -151,16 +152,6 @@
             this.label5.Text = "dk";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(56, 325);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(367, 148);
-            this.listBox1.TabIndex = 11;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -246,11 +237,23 @@
             this.listBox2.TabIndex = 20;
             this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
+            // eklenenmazemelergridwiew
+            // 
+            this.eklenenmazemelergridwiew.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.eklenenmazemelergridwiew.Location = new System.Drawing.Point(56, 324);
+            this.eklenenmazemelergridwiew.Name = "eklenenmazemelergridwiew";
+            this.eklenenmazemelergridwiew.RowHeadersWidth = 51;
+            this.eklenenmazemelergridwiew.RowTemplate.Height = 24;
+            this.eklenenmazemelergridwiew.Size = new System.Drawing.Size(367, 152);
+            this.eklenenmazemelergridwiew.TabIndex = 21;
+            this.eklenenmazemelergridwiew.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.eklenenmazemelergridwiew_CellContentClick);
+            // 
             // TarifGüncelleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.eklenenmazemelergridwiew);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.malzemeEkleButonu);
             this.Controls.Add(this.malzemeMiktariBox);
@@ -260,7 +263,6 @@
             this.Controls.Add(this.yeniKategoriEkleButonu);
             this.Controls.Add(this.tarifiGüncelleButonu);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.yeniMalzemeEkleButonu);
             this.Controls.Add(this.talimatlarBox);
@@ -275,6 +277,7 @@
             this.Name = "TarifGüncelleForm";
             this.Text = "Tarif Güncelle";
             this.Load += new System.EventHandler(this.TarifGüncelleForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.eklenenmazemelergridwiew)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -292,7 +295,6 @@
         private System.Windows.Forms.RichTextBox talimatlarBox;
         private System.Windows.Forms.Button yeniMalzemeEkleButonu;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button tarifiGüncelleButonu;
         private System.Windows.Forms.Button yeniKategoriEkleButonu;
@@ -302,5 +304,6 @@
         private System.Windows.Forms.TextBox malzemeMiktariBox;
         private System.Windows.Forms.Button malzemeEkleButonu;
         private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.DataGridView eklenenmazemelergridwiew;
     }
 }

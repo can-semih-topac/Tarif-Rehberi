@@ -56,7 +56,7 @@ namespace TarifRehberi
 
         private void TarifAra_Load(object sender, EventArgs e)
         {
-            BackgroundImage = Image.FromFile("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources/resim2.jpg");
+            BackgroundImage = Image.FromFile("C:\\DATA\\foto/resim2.jpg");
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 

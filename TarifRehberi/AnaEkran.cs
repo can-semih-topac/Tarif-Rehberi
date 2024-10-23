@@ -30,29 +30,30 @@ namespace TarifRehberi
         {
             // Ensure columns are added
             Context context = new Context();
-            Context context2= new Context();
+            Context context2 = new Context();
             tarifler = context.TumTarifleriGetir();
             dataGridView1.Columns.Add("Column0", "TarifID");
             dataGridView1.Columns.Add("Column1", "Tarif Adı");
             dataGridView1.Columns.Add("Column2", "Hazırlanma süresi (dk)");
             dataGridView1.Columns.Add("Column3", "Kategori");
             dataGridView1.Columns.Add("Column4", "Maliyet");
-            
-            
-            Maliyetler =context2.MaliyetleriGetir();
+
+
+            Maliyetler = context2.MaliyetleriGetir();
             foreach (Tarif tarif in tarifler)
             {
-                
+
                 dataGridView1.Rows.Add(tarif.TarifID, tarif.TarifAdi, tarif.HazirlamaSuresi, tarif.Kategori, Maliyetler[tarif.TarifID]);
             }
 
+            /*
             dataGridView1.Font = new Font(dataGridView1.Font.FontFamily, 10);
+            dataGridView1.DefaultCellStyle.BackColor = Color.Black;
+            dataGridView1.DefaultCellStyle.ForeColor = Color.White;
+            */
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void tarifeklebutonu_Click(object sender, EventArgs e)
         {
@@ -85,12 +86,14 @@ namespace TarifRehberi
         private void AnaEkran_Load(object sender, EventArgs e)
         {
             
-            //BackgroundImage = Image.FromFile("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources/yemekresmianaekran.jpg");
-            //this.BackgroundImageLayout = ImageLayout.Stretch;
+            BackgroundImage = Image.FromFile("C:\\DATA\\foto/yemekresmianaekran.jpg");
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+            /*
             void  InitializeIcon()
             {
-                //this.Icon = new Icon("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources\\indir.jpg"); // ikon ekleme olmadı
+                this.Icon = new Icon("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources\\indir.jpg"); // ikon ekleme olmadı
             }
+            */
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

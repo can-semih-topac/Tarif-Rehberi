@@ -30,6 +30,7 @@ namespace TarifRehberi
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tarifeklebutonu = new System.Windows.Forms.Button();
             this.tarifAraButonu = new System.Windows.Forms.Button();
             this.oneriAlButonu = new System.Windows.Forms.Button();
@@ -44,7 +45,7 @@ namespace TarifRehberi
             this.tarifeklebutonu.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.tarifeklebutonu.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.tarifeklebutonu.Location = new System.Drawing.Point(31, 177);
-            this.tarifeklebutonu.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tarifeklebutonu.Margin = new System.Windows.Forms.Padding(4);
             this.tarifeklebutonu.Name = "tarifeklebutonu";
             this.tarifeklebutonu.Size = new System.Drawing.Size(174, 50);
             this.tarifeklebutonu.TabIndex = 1;
@@ -92,6 +93,15 @@ namespace TarifRehberi
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dataGridView1.Location = new System.Drawing.Point(245, 177);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
@@ -124,7 +134,7 @@ namespace TarifRehberi
             this.Controls.Add(this.tarifAraButonu);
             this.Controls.Add(this.tarifeklebutonu);
             this.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AnaEkran";
             this.Text = "Ana Ekran";
             this.Load += new System.EventHandler(this.AnaEkran_Load);

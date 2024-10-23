@@ -24,5 +24,10 @@ namespace TarifRehberi
 
             this.Close();
         }
+
+        private void TarifSil_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

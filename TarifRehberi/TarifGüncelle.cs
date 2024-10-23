@@ -15,27 +15,34 @@ namespace TarifRehberi
     public partial class TarifGüncelleForm : Form
     {
 
-        private List<string> malzemeler;
+        private List<Malzeme> malzemeler;
 
         private List<decimal> secilenMalzemeMiktarlari;
         private List<Tarif> tarifler;
         public TarifGüncelleForm(int tarifID)
         {
             Context context = new Context();
-            malzemeler = context.GetEskiMalzemeler(tarifID).Select(m => m.MalzemeAdi).ToList();
-            secilenMalzemeMiktarlari = context.GetEskiMalzemeler(tarifID).Select(m => m.ToplamMiktar).ToList();
-            MessageBox.Show(string.Join(Environment.NewLine, malzemeler));
+            
+            malzemeler = context.GetEskiMalzemeler(tarifID);
+            
+            eklenenmazemelergridwiew.Columns.Add("Column0", "ID");
+            eklenenmazemelergridwiew.Columns.Add("Column1", "Malzeme Adı");
+            eklenenmazemelergridwiew.Columns.Add("Column2", "Miktar");
+            eklenenmazemelergridwiew.Columns.Add("Column3", "Birim");
+            
+
+
+            MessageBox.Show("GetEskiCalış");
             for (int i = 0; i < malzemeler.Count; i++)
             {
-                if (i < secilenMalzemeMiktarlari.Count)
+                if (i < malzemeler.Count) // eski malzemelerin uzunluğu kadar çalışacak
                 {
-                    string birim = context.MalzemeBirimGetir(malzemeler[i]);
-                    string malzeme = malzemeler[i] + " - " + secilenMalzemeMiktarlari[i] + " " + birim;
-                    listBox1.Items.Add(malzeme);
+                    Malzeme malzeme = malzemeler[i];
+                    eklenenmazemelergridwiew.Rows.Add(malzeme.MalzemeID, malzeme.MalzemeAdi, malzeme.ToplamMiktar, malzeme.MalzemeBirim); // burdaki toplam miktar değil kullanılan miktar
                 }
             }
 
-            secilenMalzemeMiktarlari = new List<decimal>();
+            // secilenMalzemeMiktarlari = new List<decimal>();
             InitializeComponent();
             LoadKategoriler();
             LoadMalzemeler();
@@ -59,7 +66,7 @@ namespace TarifRehberi
         private void LoadTarifBilgileri(int tarifID)
         {
             Context context = new Context();
-            Tarif tarifBilgileri = context.TarifBilgileriGetir(tarifID);
+            Tarif tarifBilgileri = context.TumTarifiGetir(tarifID);
 
             tarifAdiBox.Text = tarifBilgileri.TarifAdi;
             kategoriComboBox.SelectedItem = tarifBilgileri.Kategori;
@@ -84,7 +91,7 @@ namespace TarifRehberi
         }
         private void TarifGüncelleForm_Load(object sender, EventArgs e)
         {
-            BackgroundImage = Image.FromFile("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources/resim3.jpg");
+            BackgroundImage = Image.FromFile("C:\\DATA\\foto/resim3.jpg");
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
         private void talimatlarBox_TextChanged(object sender, EventArgs e)
@@ -149,20 +156,20 @@ namespace TarifRehberi
             decimal malzemeMiktari;
             decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
 
-            malzemeler.Add(secilenMalzeme);
+            // malzemeler.Add(secilenMalzeme);
             secilenMalzemeMiktarlari.Add(malzemeMiktari);
             Context context = new Context();
             string birim = context.MalzemeBirimGetir(secilenMalzeme);
             malzemeEkleComboBox.SelectedItem = null;
             malzemeMiktariBox.Text = string.Empty;
-            listBox1.Items.Clear();
+            eklenenmazemelergridwiew.Rows.Clear();
             listBox2.Items.Clear();
             for (int i = 0; i < malzemeler.Count; i++)
             {
                 if (i < secilenMalzemeMiktarlari.Count)
                 {
-                    string malzeme = malzemeler[i] + " - " + secilenMalzemeMiktarlari[i] + " " + birim;
-                    listBox1.Items.Add(malzeme);
+                    Malzeme malzeme = malzemeler[i];
+                    eklenenmazemelergridwiew.Rows.Add(malzeme.MalzemeID, secilenMalzeme, malzeme.ToplamMiktar, malzeme.MalzemeBirim); // burdaki toplam miktar değil kullanılan miktar
                 }
             }
         }       
@@ -177,11 +184,17 @@ namespace TarifRehberi
             decimal malzemeMiktari;
             decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
             string talimatlar = talimatlarBox.Text;
+
             Context context = new Context();
             context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmaSuresi, talimatlar);
             Context context1 = new Context();
-            context1.EkleTarifMalzemeIliskisi(tarifAdi, malzemeler, secilenMalzemeMiktarlari);
+            // context1.EkleTarifMalzemeIliskisi(tarifAdi, malzemeler, secilenMalzemeMiktarlari); başka fonk yazcaz
             this.Close();
-        }      
+        }
+
+        private void eklenenmazemelergridwiew_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

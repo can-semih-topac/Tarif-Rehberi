@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TarifRehberi.Models;
 
 namespace TarifRehberi
 {
@@ -32,8 +33,17 @@ namespace TarifRehberi
 
         private void ekleButonu_Click(object sender, EventArgs e)
         {
-
+            string malzemeisim = textBox1.Text;
+            Context context = new Context();
+            List<Tarif> tarifler = context.MalzemeTarifAra(malzemeisim);
+            listBox2.Items.Clear();
+            foreach ( Tarif tarif in tarifler)
+            {
+                listBox2.Items.Add(tarif.Kategori);
+            }
         }
+
+        
 
         private void filtreEkleButonu_Click(object sender, EventArgs e)
         {
@@ -43,8 +53,18 @@ namespace TarifRehberi
 
         private void MalzemeyeGöreTarifARa_Load(object sender, EventArgs e)
         {
-            BackgroundImage = Image.FromFile("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources/resim6.jpg");
+            BackgroundImage = Image.FromFile("C:\\DATA\\foto/resim6.jpg");
             this.BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

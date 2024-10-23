@@ -33,7 +33,7 @@ namespace TarifRehberi
 
         private void YeniKategoriEkle_Load(object sender, EventArgs e)
         {
-            BackgroundImage = Image.FromFile("C:\\Users\\canse\\source\\repos\\can-semih-topac\\TarifRehberi\\TarifRehberi\\Resources/resim5.jpg");
+            BackgroundImage = Image.FromFile("C:\\DATA\\foto/resim5.jpg");
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
     }

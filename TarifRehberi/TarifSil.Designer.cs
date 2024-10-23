@@ -70,6 +70,7 @@
             this.Controls.Add(this.checkedListBox1);
             this.Name = "TarifSil";
             this.Text = "TarifSil";
+            this.Load += new System.EventHandler(this.TarifSil_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
