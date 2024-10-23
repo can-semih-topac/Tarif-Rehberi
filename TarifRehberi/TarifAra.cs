@@ -58,6 +58,9 @@ namespace TarifRehberi
         {
             BackgroundImage = Image.FromFile("C:\\DATA\\foto/resim2.jpg");
             this.BackgroundImageLayout = ImageLayout.Stretch;
+
+            // tarifAdi TextBox'ının KeyDown olayını burada bağlayın
+            this.tarifAdi.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tarifAdi_KeyDown);
         }
 
         private void tariflerListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -67,19 +70,32 @@ namespace TarifRehberi
 
         private void adaGoreTarifAraButonu_Click(object sender, EventArgs e)
         {
+            this.tarifAdi.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tarifAdi_KeyDown);
             string arananTarifAdi = tarifAdi.Text;
 
             Context context = new Context();
             List<Tarif> tarifler = context.TariflerAra(arananTarifAdi);
-            dataGridView1.DataSource = tarifler;
             Context context1 = new Context();
             List<Tarif> tarifler1 = context1.MalzemeTarifAra(arananTarifAdi);
-            dataGridView1.DataSource = tarifler1;
+
+            // İki listeyi birleştir
+            List<Tarif> birlesikTarifler = tarifler.Concat(tarifler1).ToList();
+
+            // Birleşik listeyi DataGridView'e ata
+            dataGridView1.DataSource = birlesikTarifler;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             
+        }
+        private void tarifAdi_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                adaGoreTarifAraButonu_Click(adaGoreTarifAraButonu, EventArgs.Empty);
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }
