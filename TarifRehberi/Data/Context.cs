@@ -739,7 +739,7 @@ namespace TarifRehberi
                             decimal birimFiyat = reader.GetDecimal(4);
 
 
-                            malzemeler.Add(new Malzeme(0, malzemeAdi, malzemeMiktar, "", 0));
+                            malzemeler.Add(new Malzeme(MalzemeID,malzemeAdi,malzemeMiktar,malzemeBirim,birimFiyat));
                         }
                     }
                     catch (Exception ex)

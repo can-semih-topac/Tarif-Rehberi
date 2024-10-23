@@ -18,20 +18,25 @@ namespace TarifRehberi
         private List<Malzeme> malzemeler;
 
         private List<decimal> secilenMalzemeMiktarlari;
-        private List<Tarif> tarifler;
+        //private List<Tarif> tarifler;
         public TarifGüncelleForm(int tarifID)
         {
+            
+            InitializeComponent();
+            LoadKategoriler();
+            LoadMalzemeler();
+            LoadTarifBilgileri(tarifID);
+            LoadData(tarifID);
+        }
+        private void LoadData(int tarifID) {
             Context context = new Context();
-            
+
             malzemeler = context.GetEskiMalzemeler(tarifID);
-            
+
             eklenenmazemelergridwiew.Columns.Add("Column0", "ID");
             eklenenmazemelergridwiew.Columns.Add("Column1", "Malzeme Adı");
             eklenenmazemelergridwiew.Columns.Add("Column2", "Miktar");
             eklenenmazemelergridwiew.Columns.Add("Column3", "Birim");
-            
-
-
             MessageBox.Show("GetEskiCalış");
             for (int i = 0; i < malzemeler.Count; i++)
             {
@@ -43,10 +48,9 @@ namespace TarifRehberi
             }
 
             // secilenMalzemeMiktarlari = new List<decimal>();
-            InitializeComponent();
-            LoadKategoriler();
-            LoadMalzemeler();
-            LoadTarifBilgileri(tarifID);
+
+
+
         }
 
         private void LoadKategoriler()
@@ -154,10 +158,10 @@ namespace TarifRehberi
         {
             string secilenMalzeme = malzemeEkleComboBox.SelectedItem != null ? malzemeEkleComboBox.SelectedItem.ToString() : string.Empty;
             decimal malzemeMiktari;
-            decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
+            
 
             // malzemeler.Add(secilenMalzeme);
-            secilenMalzemeMiktarlari.Add(malzemeMiktari);
+            //secilenMalzemeMiktarlari.Add(malzemeMiktari);
             Context context = new Context();
             string birim = context.MalzemeBirimGetir(secilenMalzeme);
             malzemeEkleComboBox.SelectedItem = null;
@@ -186,7 +190,7 @@ namespace TarifRehberi
             string talimatlar = talimatlarBox.Text;
 
             Context context = new Context();
-            context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmaSuresi, talimatlar);
+            //context.YeniTarifEkle(tarifAdi, secilenKategori, hazirlanmaSuresi, talimatlar);
             Context context1 = new Context();
             // context1.EkleTarifMalzemeIliskisi(tarifAdi, malzemeler, secilenMalzemeMiktarlari); başka fonk yazcaz
             this.Close();
