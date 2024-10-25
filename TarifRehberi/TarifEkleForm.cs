@@ -116,7 +116,6 @@ namespace TarifRehberi
             string secilenMalzeme = malzemeEkleComboBox.SelectedItem != null ? malzemeEkleComboBox.SelectedItem.ToString() : string.Empty;
             decimal malzemeMiktari;
             decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
-
             malzemeler.Add(secilenMalzeme);
             secilenMalzemeMiktarlari.Add(malzemeMiktari);
             Context context = new Context();

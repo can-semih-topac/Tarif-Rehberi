@@ -13,11 +13,20 @@ namespace TarifRehberi
 {
     public partial class MalzemeyeGöreTarifARa : Form
     {
+        private List<string> secilenMalzemeler = new List<string>();
         public MalzemeyeGöreTarifARa()
         {
             InitializeComponent();
+            LoadMalzemeler();
         }
 
+        private void LoadMalzemeler()
+        {
+            Context context = new Context();
+            List<string> malzemeler = context.TumMalzemeleriGetir();
+
+            comboBox1.Items.AddRange(malzemeler.ToArray());
+        }
         private void aramayıBitirButonu_Click(object sender, EventArgs e)
         {
             // Save changes and close the form
@@ -28,22 +37,34 @@ namespace TarifRehberi
 
         private void araButonu_Click(object sender, EventArgs e)
         {
+            Context context = new Context();
+            List<Tarif> tarifler = context.MalzemelerdenEslesmeYuzdesiBul(secilenMalzemeler);
 
+            dataGridView1.DataSource = tarifler;
         }
 
         private void ekleButonu_Click(object sender, EventArgs e)
         {
-            string malzemeisim = textBox1.Text;
-            Context context = new Context();
-            List<Tarif> tarifler = context.MalzemeTarifAra(malzemeisim);
-            listBox2.Items.Clear();
-            foreach ( Tarif tarif in tarifler)
+            string malzemeisim = comboBox1.Text;
+
+            if (!string.IsNullOrEmpty(malzemeisim))
             {
-                listBox2.Items.Add(tarif.Kategori);
+                if (!listBox1.Items.Contains(malzemeisim))
+                {
+                    listBox1.Items.Add(malzemeisim);
+                    secilenMalzemeler.Add(malzemeisim);
+                }
             }
         }
 
-        
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+
+        {
+
+        }
+
+
 
         private void filtreEkleButonu_Click(object sender, EventArgs e)
         {
@@ -57,12 +78,15 @@ namespace TarifRehberi
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+
+
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

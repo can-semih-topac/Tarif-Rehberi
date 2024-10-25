@@ -30,13 +30,14 @@
         {
             this.aramayıBitirButonu = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.ekleButonu = new System.Windows.Forms.Button();
-            this.listBox2 = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.araButonu = new System.Windows.Forms.Button();
             this.filtreEkleButonu = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // aramayıBitirButonu
@@ -58,14 +59,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Aranacak malzemeleri girin:";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(45, 67);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(229, 22);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
@@ -84,16 +77,6 @@
             this.ekleButonu.Text = "Ekle";
             this.ekleButonu.UseVisualStyleBackColor = true;
             this.ekleButonu.Click += new System.EventHandler(this.ekleButonu_Click);
-            // 
-            // listBox2
-            // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(45, 194);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(575, 228);
-            this.listBox2.TabIndex = 5;
-            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -124,23 +107,44 @@
             this.filtreEkleButonu.UseVisualStyleBackColor = true;
             this.filtreEkleButonu.Click += new System.EventHandler(this.filtreEkleButonu_Click);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(45, 194);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(474, 223);
+            this.dataGridView1.TabIndex = 9;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(45, 67);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 24);
+            this.comboBox1.TabIndex = 10;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // MalzemeyeGöreTarifARa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.filtreEkleButonu);
             this.Controls.Add(this.araButonu);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.listBox2);
             this.Controls.Add(this.ekleButonu);
             this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.aramayıBitirButonu);
             this.Name = "MalzemeyeGöreTarifARa";
             this.Text = "Malzemeye Göre Tarif Ara";
             this.Load += new System.EventHandler(this.MalzemeyeGöreTarifARa_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,12 +154,12 @@
 
         private System.Windows.Forms.Button aramayıBitirButonu;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button ekleButonu;
-        private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button araButonu;
         private System.Windows.Forms.Button filtreEkleButonu;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

@@ -16,8 +16,9 @@ namespace TarifRehberi
     {
 
         private List<Malzeme> malzemeler;
+        private List<Malzeme> EklencekMalzeme=new List<Malzeme>();
 
-        private List<decimal> secilenMalzemeMiktarlari;
+        private List<decimal> secilenMalzemeMiktarlari=new List<decimal>();
         //private List<Tarif> tarifler;
         public TarifGüncelleForm(int tarifID)
         {
@@ -158,22 +159,25 @@ namespace TarifRehberi
         {
             string secilenMalzeme = malzemeEkleComboBox.SelectedItem != null ? malzemeEkleComboBox.SelectedItem.ToString() : string.Empty;
             decimal malzemeMiktari;
-            
-
-             //malzemeler.Add(secilenMalzeme);
-            //secilenMalzemeMiktarlari.Add(malzemeMiktari);
-            Context context = new Context();
-            string birim = context.MalzemeBirimGetir(secilenMalzeme);
+            decimal.TryParse(malzemeMiktariBox.Text, out malzemeMiktari);
+            Context context0 = new Context();
+            Malzeme Emalzeme = context0.GetMalzeme(secilenMalzeme);
+            MessageBox.Show(Emalzeme.MalzemeBirim);
+            malzemeler.Add(Emalzeme);
+            EklencekMalzeme.Add(Emalzeme);
+            secilenMalzemeMiktarlari.Add(malzemeMiktari); 
+            //Context context = new Context();
+            //string birim = context.MalzemeBirimGetir(secilenMalzeme);
             malzemeEkleComboBox.SelectedItem = null;
             malzemeMiktariBox.Text = string.Empty;
-            eklenenmazemelergridwiew.Rows.Clear();
+            //eklenenmazemelergridwiew.Rows.Clear();
             listBox2.Items.Clear();
-            for (int i = 0; i < malzemeler.Count; i++)
+            for (int i = 0; i < EklencekMalzeme.Count; i++)
             {
                 if (i < secilenMalzemeMiktarlari.Count)
                 {
-                    Malzeme malzeme = malzemeler[i];
-                    eklenenmazemelergridwiew.Rows.Add(malzeme.MalzemeID, secilenMalzeme, malzeme.ToplamMiktar, malzeme.MalzemeBirim); // burdaki toplam miktar değil kullanılan miktar
+                    Malzeme malzeme = EklencekMalzeme[i];
+                    eklenenmazemelergridwiew.Rows.Add(malzeme.MalzemeID, secilenMalzeme, malzemeMiktari, malzeme.MalzemeBirim); // burdaki toplam miktar değil kullanılan miktar
                 }
             }
         }       

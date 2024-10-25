@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 using TarifRehberi.Data;
 using TarifRehberi.Models;
 
@@ -449,6 +450,7 @@ namespace TarifRehberi
 
             return tarifler;
         }
+
         public void EkleTarifMalzemeIliskisi(string tarifAdi, List<string> malzemeler, List<decimal> secilenMalzemeMiktarlari)
         {
             if (conn == null)
@@ -858,8 +860,105 @@ namespace TarifRehberi
 
             return yeterliMalzeme;
         }
+        public Malzeme GetMalzeme(string MalzemeAdi)
+        {
+            Malzeme malzeme = null;
+            using (conn)
+            {
+                
+                string Equry = "Select * From Malzemeler Where MalzemeAdi = @MalzemeAdi";
+                conn.Open();
+                using(SqlCommand command = new SqlCommand(Equry, conn)) 
+                {
+                    
+                    try
+                    {
+                        command.Parameters.AddWithValue("MalzemeAdi", MalzemeAdi);
+                        SqlDataReader reader=command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            malzeme=new Malzeme(reader.GetInt32(0),reader.GetString(1),reader.GetDecimal(2),reader.GetString(3),reader.GetDecimal(4));
+                        }
 
-        
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Hata var (GetMalzeme)", ex.Message);
+                    }
+                }
+            }
+
+            return malzeme;
+        }
+
+        public List<Tarif> MalzemelerdenEslesmeYuzdesiBul(List<string> secilenmalzemeler)
+        {
+            List<int> malzemeIdleri = new List<int>();
+            List<int> tarifIdleri = new List<int>();
+            List<Tarif> tarifler = new List<Tarif>();
+
+            // Open the connection
+            conn.Open();
+
+            // Malzeme adlarından malzeme ID'lerini al
+            foreach (var malzemeAdi in secilenmalzemeler)
+            {
+                var query1 = "SELECT MalzemeID FROM Malzemeler WHERE MalzemeAdi = @MalzemeAdi";
+                var command1 = new SqlCommand(query1, conn);
+                command1.Parameters.AddWithValue("@MalzemeAdi", malzemeAdi);
+                var reader1 = command1.ExecuteReader();
+                if (reader1.Read())
+                {
+                    malzemeIdleri.Add((int)reader1["MalzemeID"]);
+                }
+                reader1.Close();
+            }
+
+            // Malzeme ID'lerinden tarif ID'lerini al
+            foreach (var malzemeId in malzemeIdleri)
+            {
+                var query2 = "SELECT TarifID FROM TarifMalzemeIliskisi WHERE MalzemeID = @MalzemeID";
+                var command2 = new SqlCommand(query2, conn);
+                command2.Parameters.AddWithValue("@MalzemeID", malzemeId);
+                var reader2 = command2.ExecuteReader();
+                while (reader2.Read())
+                {
+                    int tarifId = (int)reader2["TarifID"];
+                    if (!tarifIdleri.Contains(tarifId))
+                    {
+                        tarifIdleri.Add(tarifId);
+                    }
+                }
+                reader2.Close();
+            }
+
+            // Tarif ID'lerinden tarifleri al
+            foreach (var tarifId in tarifIdleri)
+            {
+                var query3 = "SELECT * FROM Tarifler WHERE TarifID = @TarifID";
+                var command3 = new SqlCommand(query3, conn);
+                command3.Parameters.AddWithValue("@TarifID", tarifId);
+                var reader3 = command3.ExecuteReader();
+                if (reader3.Read())
+                {
+                    var tarif = new Tarif(
+                        (int)reader3["TarifID"],
+                        (string)reader3["TarifAdi"],
+                        (string)reader3["Kategori"],
+                        (int)reader3["HazirlamaSuresi"],
+                        (string)reader3["Talimatlar"]
+                    );
+                    tarifler.Add(tarif);
+                }
+                reader3.Close();
+            }
+
+            // Close the connection
+            conn.Close();
+
+            return tarifler;
+        }
+
 
     }
 }
